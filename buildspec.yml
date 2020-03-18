@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo Bootstraping build dependencies...
+      - npm i npm@latest -g
+      - pip install --upgrade pip
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+  post_build:
+    commands:
+      - echo Sync /dist to S3 ...
+      - aws s3 sync ./dist $S3_BUCKET --delete
+      - echo Schedulling CloudFront invalidation...
+      - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+cache:
+  paths:
+    - './node_modules/**/*'

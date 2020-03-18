@@ -1,0 +1,1 @@
+{ "extends": "./configs/tsconfig.es20.json" }
