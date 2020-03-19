@@ -115,8 +115,8 @@ module.exports = (env) => {
                         'default',
                         {
                           discardComments: {
-                          removeAll: true,
-                        },
+                            removeAll: true,
+                          },
                       }]
                     },
                     'env': process.env.NODE_ENV,

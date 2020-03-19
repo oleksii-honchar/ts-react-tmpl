@@ -1,3 +1,5 @@
+const purgeCss = require('./purgecss.config');
+
 console.log("[config:post-css] config loaded");
 
 module.exports = ({ file, options, env }) => ({
@@ -12,27 +14,8 @@ module.exports = ({ file, options, env }) => ({
 
     env === "production"
       ? require("cssnano")({ ...options.cssnano })
-      : false,
+      : require("postcss-discard-comments"),
 
-    // env === "production"
-    //   ? require("@fullhuman/postcss-purgecss")({
-    //     content: [
-    //       "../src/**/*.html",
-    //       "../src/**/*.jsx",
-    //       "../src/**/*.tsx",
-    //     ],
-    //     defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
-    //   })
-    //   : false
-    require("@fullhuman/postcss-purgecss")({
-      content: [
-        "../src/**/*.html",
-        "../src/**/*.hbs",
-        "../src/**/*.jsx",
-        "../src/**/*.tsx",
-        "../src/pages/Root/components/Navigation.tsx"
-      ],
-    })
-
+    purgeCss,
   ]
 });
