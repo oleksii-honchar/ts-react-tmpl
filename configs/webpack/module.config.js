@@ -7,12 +7,12 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = (env) => {
   return {
-    // plugins: [
-    //   new ExtractCssChunksPlugin({
-    //     filename: '[name].css',
-    //     chunkFilename: '[id].css',
-    //   }),
-    // ],
+    plugins: [
+      new ExtractCssChunksPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css'
+      }),
+    ],
     module: {
       rules: [
         {
@@ -95,7 +95,7 @@ module.exports = (env) => {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: false, // true cause to obfuscation
                 importLoaders: 1,
               },
             },
@@ -110,15 +110,15 @@ module.exports = (env) => {
                         'nesting-rules': true
                       }
                     },
-                    // 'cssnano': {
-                    //   preset: [
-                    //     'default',
-                    //     {
-                    //       discardComments: {
-                    //       removeAll: true,
-                    //     },
-                    //   }]
-                    // },
+                    'cssnano': {
+                      preset: [
+                        'default',
+                        {
+                          discardComments: {
+                          removeAll: true,
+                        },
+                      }]
+                    },
                     'env': process.env.NODE_ENV,
                   },
                   path: path.join(__dirname, '../postcss.config.js'),

@@ -64,12 +64,8 @@ module.exports = (env) => {
           from: "./src/assets",
           to: ".",
           ignore: [ "*.hbs", ".DS_Store" ],
-        },
-        // {
-        //   from: "./dist/app.css",
-        //   to: "./stylesheets/app.css"
-        // }
-      ]),
+        }
+      ])
     ],
     node: false,
     watchOptions: {
