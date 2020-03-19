@@ -4,30 +4,27 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-console.log("[config:webpack:snippet] Base loaded");
+console.log("[config:webpack:snippet] 'Base' loaded");
 
 const pkg = require("../../package.json");
 
 module.exports = (env) => {
   const outputSuff = env.TS_TARGET === "es5" ? "es5.js": "mjs";
 
-  console.log(`[config:webpack:snippet] Base: processing "${env.TS_TARGET}" config`);
+  console.log(`[config:webpack:snippet] 'Base' processing '${env.TS_TARGET}' config`);
 
   return {
     mode: process.env.NODE_ENV,
     cache: true,
+    devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
     devServer: {
-      // http2: true,
       port: process.env.SERVE_PORT,
       contentBase: path.join(__dirname, "../../dist"),
       publicPath: "/assets/",
       writeToDisk: true,
     },
-    entry: {
-      app: "./src/index.tsx",
-    },
     resolve: {
-      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".mjs"],
+      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".mjs", ".css", ".pcss"],
         modules: [
         "src",
         "node_modules",
@@ -44,7 +41,7 @@ module.exports = (env) => {
       filename: `[name].bundle.${outputSuff}`,
       chunkFilename: `[name].bundle.${outputSuff}`,
       sourceMapFilename: `[name].${env.TS_TARGET}.map`,
-      publicPath: "./",
+      publicPath: "/assets/",
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({

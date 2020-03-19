@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "author": "Oleksii Honchar",
-  "main": "src/index.tsx",
+  "main": "src/app.tsx",
   "scripts": {
+    "prebuild:loc": "npm run clean:dist",
     "prebuild": "npm run clean:dist",
     "build": "bash scripts/build.sh",
     "build:analyze": "cross-env-shell BUILD_ANALYZE=true bash ./scripts/build.sh",

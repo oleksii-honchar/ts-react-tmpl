@@ -1,4 +1,4 @@
-console.log('[config:webpack:snippet] React loaded');
+console.log('[config:webpack:snippet] Externals loaded');
 
 module.exports = {
   externals: {

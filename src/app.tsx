@@ -1,4 +1,3 @@
-import "stylesheets/index.pcss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 // @ts-ignore
