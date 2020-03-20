@@ -15,11 +15,9 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
-    "react/react-in-jsx-scope" : 0,
     "class-methods-use-this": "off",
     "dot-notation": ["error", { "allowPattern": "^(code)$" }],
     "function-paren-newline": [
@@ -41,9 +39,7 @@ module.exports = {
     ],
     "no-unused-vars": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id", "_headers"] }],
-    "quote-props": ["error", "consistent-as-needed"],
-    "jsxSingleQuote" : 0,
-    "jsx-quotes": 0
+    "quote-props": ["error", "consistent-as-needed"]
   },
   env: {
     browser: true,
@@ -63,9 +59,6 @@ module.exports = {
     "import"
   ],
   settings: {
-    "react": {
-      version: "detect",
-    },
     "import/extensions": [".js",".jsx",".ts",".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts",".tsx"]
