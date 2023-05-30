@@ -1,7 +1,8 @@
 const path = require("path");
 const PurgeFromTsx = require("./libs/purge-from-tsx");
 
-console.log("[config:purge-css] config loaded");
+const logHeader = "[config:purge-css]".cyan;
+console.log(logHeader, "config loaded");
 
 module.exports = require("@fullhuman/postcss-purgecss")({
   content: [

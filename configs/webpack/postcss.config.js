@@ -1,6 +1,7 @@
 const purgeCss = require('./purgecss.config');
 
-console.log("[config:post-css] config loaded");
+const logHeader = "[config:post-css]".cyan;
+console.log(logHeader, "config loaded");
 
 module.exports = ({ file, options, env }) => ({
   plugins: [

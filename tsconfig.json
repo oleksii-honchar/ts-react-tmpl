@@ -1,1 +1,1 @@
-{ "extends": "./configs/tsconfig.es20.json" }
+{ "extends": "./configs/tsconfig.es2022.json" }

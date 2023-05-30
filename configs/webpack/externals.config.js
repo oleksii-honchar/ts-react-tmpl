@@ -1,4 +1,5 @@
-console.log('[config:webpack:snippet] Externals loaded');
+const logHeader = "[config:webpack:snippet]".cyan;
+console.log(logHeader,"'Externals' loaded");
 
 module.exports = {
   externals: {

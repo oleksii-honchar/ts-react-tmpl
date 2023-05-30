@@ -11,14 +11,13 @@
     "jsx": "react",
     "lib": [
       "dom",
-      "es5"
+      "es2022"
     ],
-    "module": "CommonJS",
+    "module": "esnext",
     "moduleResolution": "node",
     "newLine": "lf",
     "noEmit": true,
     "noImplicitAny": true,
-    "noStrictGenericChecks": true,
     "paths": {
       "src/*": [ "src/*" ]
     },
@@ -26,8 +25,7 @@
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es3",
+    "target": "ES2022",
     "typeRoots": [
       "../node_modules/@types",
       "../src/typings"
@@ -37,6 +35,7 @@
     "../src/**/*"
   ],
   "exclude": [
+    "../node_modules",
     "../configs",
     "../dist",
     "../docs",

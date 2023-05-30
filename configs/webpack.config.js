@@ -1,70 +1,76 @@
-const webpackMerge = require('webpack-merge');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { merge } = require("webpack-merge");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const colors = require("colors");
+colors.enable();
 
 // Short usage reference
 // `NODE_ENV` = development | test | production
 // `LOG_LEVEL` = error | warn | info | debug
-const generateIndexHtml = require('./webpack/libs/generateIndexHtml');
-const pkg = require('../package.json');
+const generateIndexHtml = require("./webpack/libs/generateIndexHtml");
+const pkg = require("../package.json");
 
-const baseCfg = require('./webpack/base.config');
-const moduleCfg = require('./webpack/module.config');
-const moduleCssCfg = require('./webpack/module-css.config');
-const prodCfg = require('./webpack/prod.config');
-const externalsCfg = require('./webpack/externals.config');
+const baseCfg = require("./webpack/base.config");
+const moduleCfg = require("./webpack/module.config");
+const moduleCssCfg = require("./webpack/module-css.config");
+const devSrvCfg = require("./webpack/dev-server.config");
+const prodCfg = require("./webpack/prod.config");
+const externalsCfg = require("./webpack/externals.config");
 
-console.log(`[config:webpack] "${pkg.name}" config composition started`);
+const logHeader = "[config:webpack]".cyan;
+console.log(logHeader, `"${pkg.name}" config composition started`);
 
-module.exports = (env) => {
+module.exports = (env, argv) => {
   env = env ? env : {};
   env.BUILD_ANALYZE = env.BUILD_ANALYZE ? env.BUILD_ANALYZE : null;
 
-  console.log(`[config:webpack] "${process.env.NODE_ENV}" mode used...`);
+  console.log(logHeader, `"${process.env.NODE_ENV}" mode used...`);
 
   generateIndexHtml(env);
 
-  const envES2020 = { ...env, TS_TARGET: 'es20'};
+  const envES2022 = { ...env, TS_TARGET: "es2022" };
 
-  let cfgES2020 = baseCfg(envES2020);
-  cfgES2020 = webpackMerge(cfgES2020, moduleCssCfg(env));
-  cfgES2020 = webpackMerge(cfgES2020, moduleCfg(envES2020));
-  cfgES2020 = webpackMerge(cfgES2020, externalsCfg);
-  cfgES2020 = webpackMerge(cfgES2020, {
+  let cfgES2022 = baseCfg(envES2022);
+  cfgES2022 = merge(cfgES2022, moduleCssCfg(env));
+  cfgES2022 = merge(cfgES2022, moduleCfg(envES2022));
+  cfgES2022 = merge(cfgES2022, externalsCfg);
+  cfgES2022 = merge(cfgES2022, {
     entry: {
-      app: "./src/index.es2020.tsx"
-    }
+      app: "./src/index.es2022.tsx",
+    },
   });
 
-  if (env.BUILD_ANALYZE === 'true') {
-    console.log('[config:webpack] bundle analyzer included');
+  if (argv.mode === "development") {
+    cfgES2022 = merge(cfgES2022, devSrvCfg(envES2022));
+  }
 
-    cfgES2020 = webpackMerge(cfgES2020, {
-      plugins: [ new BundleAnalyzerPlugin() ]
+  if (env.BUILD_ANALYZE === "true") {
+    console.log(logHeader,"bundle analyzer included");
+
+    cfgES2022 = merge(cfgES2022, {
+      plugins: [new BundleAnalyzerPlugin()],
     });
   }
 
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('[config:webpack] config composition completed');
-
-    return [ cfgES2020 ];
+  if (process.env.NODE_ENV !== "production") {
+    console.log("[config:webpack] config composition completed");
+    return [cfgES2022];
   }
 
-  // for prod will add es2015 cfg
-  const envES2015 = { ...env, TS_TARGET: 'es5'};
-  let cfgES2015 = baseCfg(envES2015);
-  cfgES2015 = webpackMerge(cfgES2015, moduleCfg(envES2015));
-  cfgES2015 = webpackMerge(cfgES2015, externalsCfg);
-  cfgES2015 = webpackMerge(cfgES2015, {
+  // for prod will add es2016 cfg
+  const envES2016 = { ...env, TS_TARGET: "es2016" };
+  let cfgES2016 = baseCfg(envES2016);
+  cfgES2016 = merge(cfgES2016, moduleCfg(envES2016));
+  cfgES2016 = merge(cfgES2016, externalsCfg);
+  cfgES2016 = merge(cfgES2016, {
     entry: {
-      app: "./src/index.es2015.tsx"
-    }
+      app: "./src/index.es2016.tsx",
+    },
   });
 
+  let configs = [cfgES2022, cfgES2016];
 
-  let configs = [ cfgES2020, cfgES2015 ];
+  configs = configs.map((cfg) => merge(cfg, prodCfg));
 
-  configs = configs.map((cfg) => webpackMerge(cfg, prodCfg));
-
-  console.log('[config:webpack] config composition completed');
+  console.log("[config:webpack] config composition completed");
   return configs;
-}
+};

@@ -28,13 +28,13 @@ printf "Base dir: $currDir\n";
 
 printf "${GREEN}./devops/local/scripts/${NC}\n";
 chmodFile ./devops/local/scripts/check-env-vars.sh
-chmodFile ./devops/local/scripts/load-env.sh
+chmodFile ./devops/local/scripts/load-project-env.sh
 
-printf "${GREEN}./scripts/${NC}\n";
-chmodFile ./scripts/build.sh
-chmodFile ./scripts/build.loc.sh
-chmodFile ./scripts/deploy-to-cdn.sh
-chmodFile ./scripts/launch.dev-server.sh
-chmodFile ./scripts/watch.loc.sh
+#printf "${GREEN}./scripts/${NC}\n";
+#chmodFile ./scripts/build.sh
+#chmodFile ./scripts/build.loc.sh
+#chmodFile ./scripts/deploy-to-cdn.sh
+#chmodFile ./scripts/launch.dev-server.sh
+#chmodFile ./scripts/watch.loc.sh
 
 printf "${LBLUE}Done${NC}\n";

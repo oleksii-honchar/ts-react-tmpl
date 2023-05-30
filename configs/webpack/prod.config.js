@@ -1,8 +1,6 @@
-const CompressionPlugin = require('compression-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-
-console.log("[config:webpack:snippet] 'Production' loaded");
+const logHeader = "[config:webpack:snippet]".cyan;
+console.log(logHeader, "'Production' loaded");
 
 module.exports = {
-  mode: process.env.NODE_ENV
+  mode: process.env.NODE_ENV,
 };
