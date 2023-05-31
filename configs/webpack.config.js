@@ -15,6 +15,7 @@ const moduleCssCfg = require("./webpack/module-css.config");
 const devSrvCfg = require("./webpack/dev-server.config");
 const prodCfg = require("./webpack/prod.config");
 const externalsCfg = require("./webpack/externals.config");
+const { GenerateIndexHTML}  = require("./webpack/GenerateIndexHTML.plugin");
 
 const logHeader = "[config:webpack]".cyan;
 console.log(logHeader, `"${pkg.name}" config composition started`);
@@ -24,8 +25,6 @@ module.exports = (env, argv) => {
   env.BUILD_ANALYZE = env.BUILD_ANALYZE ? env.BUILD_ANALYZE : null;
 
   console.log(logHeader, `"${process.env.NODE_ENV}" mode used...`);
-
-  generateIndexHtml(env);
 
   const envES2022 = { ...env, TS_TARGET: "es2022" };
 
@@ -37,6 +36,7 @@ module.exports = (env, argv) => {
     entry: {
       app: "./src/index.es2022.tsx",
     },
+    plugins: [new GenerateIndexHTML(env)]
   });
 
   if (argv.mode === "development") {
@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
     console.log(logHeader,"bundle analyzer included");
 
     cfgES2022 = merge(cfgES2022, {
-      plugins: [new BundleAnalyzerPlugin()],
+      plugins: [new BundleAnalyzerPlugin(env)],
     });
   }
 

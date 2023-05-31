@@ -35,7 +35,7 @@ module.exports = (env) => {
           ],
         },
         {
-          test: /\.p?css$/,
+          test: /\.p?css$/i,
           exclude: /src\/assets/,
           use: [
             'style-loader',
@@ -56,7 +56,7 @@ module.exports = (env) => {
             {
               loader: 'postcss-loader',
               options: {
-                config: {
+                postcssOptions: {
                   ctx: {
                     'postcss-preset-env': {
                       stage: 3,

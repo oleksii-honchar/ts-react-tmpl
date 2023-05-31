@@ -58,7 +58,7 @@ module.exports = (env) => {
           {
             from: "./src/assets",
             to: ".",
-            globOptions: { ignore: ["*.hbs", ".DS_Store"] },
+            globOptions: { ignore: ["**/*.hbs", "**/.DS_Store" ,"**/index.hbs"] },
           },
         ],
       }),

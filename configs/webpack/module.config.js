@@ -11,12 +11,20 @@ module.exports = (env) => {
           test: /\.[tj]sx?$/,
           use: "source-map-loader",
         },
+        // {
+        //   test: /\.[tj]sx?$/,
+        //   loader: "ts-loader",
+        //   options: {
+        //     transpileOnly: true,
+        //     configFile: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
+        //   },
+        //   exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
+        // },
         {
           test: /\.[tj]sx?$/,
-          loader: "ts-loader",
+          loader: "esbuild-loader",
           options: {
-            transpileOnly: true,
-            configFile: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
+            tsconfig: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
           },
           exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
         },

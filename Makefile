@@ -42,7 +42,7 @@ build: clean-dist load-project-env check-env-vars ## Build production version
 
 	@printf "${GREEN}build: DONE${NC}\n"
 
-build-analyze: load-project-env check-env-vars # build and analyze bundle content
+build-analyze: load-project-env check-env-vars ## build and analyze bundle content
 	$(MAKE) build BUILD_ANALYZE=true
 
 build-loc: clean-dist load-project-env check-env-vars ## Build local version
@@ -58,7 +58,7 @@ build-loc-analyze: load-project-env check-env-vars# build and analyze bundle con
 	$(MAKE) build-loc BUILD_ANALYZE=true
 
 
-launch-dev-server: load-project-env check-env-vars # Launches local Webpack dev-server
+launch-dev-server: load-project-env check-env-vars ## Launches local Webpack dev-server
 	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
 	@source ${envFileLoc}
 	@npx env-cmd -f ${envFileLoc} webpack-dev-server \
@@ -67,7 +67,7 @@ launch-dev-server: load-project-env check-env-vars # Launches local Webpack dev-
 		--env BUILD_ANALYZE=false \
 		--open
 
-watch-loc: # No dev server - only file watch and rebuild
+watch-loc: ## No dev server - only file watch and rebuild
 	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
 	@source ${envFileLoc}
 	@npx env-cmd -f ${envFileLoc} webpack \
