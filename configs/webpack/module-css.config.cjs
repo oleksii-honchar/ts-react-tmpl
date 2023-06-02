@@ -75,7 +75,7 @@ module.exports = (env) => {
                     },
                     'env': process.env.NODE_ENV,
                   },
-                  path: path.join(__dirname, '../webpack/postcss.config.js'),
+                  path: path.join(__dirname, '../webpack/postcss.config.cjs'),
                 },
               },
             }

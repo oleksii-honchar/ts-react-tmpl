@@ -5,9 +5,12 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
+const { PruneLicenseFilesInDist } = await import("./plugins/PruneLicenseFilesInDist.plugin.mjs");
+
 const logHeader = "[config:webpack:snippet]".cyan;
 console.log(logHeader,"'Base' loaded");
 
+const outputPath = path.join(__dirname, "../../dist");
 const pkg = require("../../package.json");
 
 module.exports = (env) => {
@@ -30,7 +33,7 @@ module.exports = (env) => {
       ],
     },
     output: {
-      path: path.join(__dirname, "../../dist"),
+      path: outputPath,
       filename: `[name].bundle.${outputSuff}`,
       chunkFilename: `[name].bundle.${outputSuff}`,
       sourceMapFilename: `[name].${env.TS_TARGET}.map`,
@@ -62,6 +65,7 @@ module.exports = (env) => {
           },
         ],
       }),
+      new PruneLicenseFilesInDist(outputPath)
     ],
     node: false,
     watchOptions: {

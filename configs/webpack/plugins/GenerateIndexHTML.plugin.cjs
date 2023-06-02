@@ -1,6 +1,6 @@
 const {Compilation, sources} = require('webpack');
 const colors = require("colors");
-const generateIndexHtml = require("./libs/generateIndexHtml");
+const generateIndexHtml = require("../libs/generateIndexHtml.cjs");
 
 colors.enable();
 class GenerateIndexHTML {

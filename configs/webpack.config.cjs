@@ -6,16 +6,16 @@ colors.enable();
 // Short usage reference
 // `NODE_ENV` = development | test | production
 // `LOG_LEVEL` = error | warn | info | debug
-const generateIndexHtml = require("./webpack/libs/generateIndexHtml");
+const generateIndexHtml = require("./webpack/libs/generateIndexHtml.cjs");
 const pkg = require("../package.json");
 
-const baseCfg = require("./webpack/base.config");
-const moduleCfg = require("./webpack/module.config");
-const moduleCssCfg = require("./webpack/module-css.config");
-const devSrvCfg = require("./webpack/dev-server.config");
-const prodCfg = require("./webpack/prod.config");
-const externalsCfg = require("./webpack/externals.config");
-const { GenerateIndexHTML}  = require("./webpack/GenerateIndexHTML.plugin");
+const baseCfg = require("./webpack/base.config.cjs");
+const moduleCfg = require("./webpack/module.config.cjs");
+const moduleCssCfg = require("./webpack/module-css.config.cjs");
+const devSrvCfg = require("./webpack/dev-server.config.cjs");
+const prodCfg = require("./webpack/prod.config.cjs");
+const externalsCfg = require("./webpack/externals.config.cjs");
+const { GenerateIndexHTML}  = require("./webpack/plugins/GenerateIndexHTML.plugin.cjs");
 
 const logHeader = "[config:webpack]".cyan;
 console.log(logHeader, `"${pkg.name}" config composition started`);
@@ -71,6 +71,6 @@ module.exports = (env, argv) => {
 
   configs = configs.map((cfg) => merge(cfg, prodCfg));
 
-  console.log("[config:webpack] config composition completed");
+  console.log("[config:webpack]".cyan, "config composition completed");
   return configs;
 };

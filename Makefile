@@ -33,10 +33,10 @@ clean-dist:  ## Cleaning ./dist folder
 .PHONY: clean-dist
 
 build: clean-dist load-project-env check-env-vars ## Build production version
-	@npx env-cmd -f $(envFileProd) "$(PWD)/devops/local/scripts/check-env-vars.sh"
 	@source $(envFileProd)
-	@npx env-cmd -f $(envFileProd) webpack \
-		--config ./configs/webpack.config.js \
+	@npx env-cmd -f $(envFileProd) node --es-module-specifier-resolution=node --trace-warnings \
+ 		--loader ts-node/esm ./scripts/webpack.ts \
+		--config ./configs/webpack.config.cjs \
 		--mode production \
 		--env BUILD_ANALYZE=$(BUILD_ANALYZE)
 
@@ -49,7 +49,7 @@ build-loc: clean-dist load-project-env check-env-vars ## Build local version
 	@npx env-cmd -f $(envFileLoc) "$(PWD)/devops/local/scripts/check-env-vars.sh"
 	@source $(envFileLoc)
 	@npx env-cmd -f $(envFileLoc) webpack \
-		--config ./configs/webpack.config.js \
+		--config ./configs/webpack.config.cjs \
 		--mode development \
 		--env BUILD_ANALYZE=$(BUILD_ANALYZE)
 	@printf "${GREEN}build-loc: DONE${NC}\n"
@@ -62,7 +62,7 @@ launch-dev-server: load-project-env check-env-vars ## Launches local Webpack dev
 	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
 	@source ${envFileLoc}
 	@npx env-cmd -f ${envFileLoc} webpack-dev-server \
-		--config ./configs/webpack.config.js \
+		--config ./configs/webpack.config.cjs \
 		--mode development \
 		--env BUILD_ANALYZE=false \
 		--open
@@ -71,7 +71,7 @@ watch-loc: ## No dev server - only file watch and rebuild
 	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
 	@source ${envFileLoc}
 	@npx env-cmd -f ${envFileLoc} webpack \
-		--config ./configs/webpack.config.js \
+		--config ./configs/webpack.config.cjs \
 		--watch \
 		--progress \
 		--mode development \

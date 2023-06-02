@@ -1,4 +1,4 @@
-const purgeCss = require('./purgecss.config');
+const purgeCss = require('./purgecss.config.cjs');
 
 const logHeader = "[config:post-css]".cyan;
 console.log(logHeader, "config loaded");

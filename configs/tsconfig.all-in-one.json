@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    "allowJs": false,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "..",
+    "allowImportingTsExtensions": true,
+    "baseUrl": "./",
     "declaration": false,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": false,
     "importHelpers": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "es2022"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "lib": [ "dom", "esnext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "newLine": "lf",
     "noEmit": true,
     "noImplicitAny": true,
@@ -24,23 +21,24 @@
     },
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "removeComments": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2022",
+    "target": "esnext",
     "typeRoots": [
       "../node_modules/@types",
-      "../src/typings"
-    ]
+      "./src/typings"
+    ],
+    "types": ["node"]
   },
   "include": [
-    "../src/**/*"
+    "../**/*"
   ],
   "exclude": [
     "../node_modules",
-    "../configs",
-    "../dist",
-    "../docs",
-    "../coverage",
-    "../devops"
+    "./dist",
+    "./docs",
+    "./coverage",
+    "./devops"
   ]
 }

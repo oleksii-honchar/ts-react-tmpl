@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: "es2022",
     errorOnUnknownASTType: true,
     errorOnTypeScriptSyntacticAndSemanticIssues: true,
-    project: "tsconfig.json",
+    project: "tsconfig.all-in-one.json",
     sourceType: "module",
   },
   extends: [

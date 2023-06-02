@@ -1,5 +1,5 @@
 const path = require("path");
-const PurgeFromTsx = require("./libs/purge-from-tsx");
+const PurgeFromTsx = require("./libs/purge-from-tsx.cjs");
 
 const logHeader = "[config:purge-css]".cyan;
 console.log(logHeader, "config loaded");
