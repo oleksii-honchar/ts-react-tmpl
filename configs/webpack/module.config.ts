@@ -1,8 +1,11 @@
-const path = require("path");
-const logHeader = "[config:webpack:snippet]".cyan;
-console.log(logHeader,"'Module' loaded");
+import path from "path";
+import { __dirname } from "scripts/esm-utils.ts";
+import { blablo } from "blablo";
 
-module.exports = (env) => {
+const logHeader = "[webpack:config:snippet] ".cyan;
+blablo.log(logHeader, "loading ", "'Module'".white.bold).finish();
+
+export const moduleConfig = (env: any = {}) => {
   return {
     module: {
       rules: [
@@ -24,7 +27,7 @@ module.exports = (env) => {
           test: /\.[tj]sx?$/,
           loader: "esbuild-loader",
           options: {
-            tsconfig: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
+            tsconfig: path.join(__dirname(), `./tsconfig.${env.TS_TARGET}.json`),
           },
           exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
         },
