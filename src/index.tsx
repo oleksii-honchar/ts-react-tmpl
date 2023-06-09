@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 // @ts-ignore
 import { LoggerService } from "@ciklum/logan";
 
@@ -13,8 +13,9 @@ logger.setTitle("index");
 
 function startApp(): void {
   logger.info("Starting app...");
-
-  ReactDOM.render(<Root />, document.querySelector("#app-root"));
+  const container = document.getElementById("app-root")!;
+  const root = createRoot(container);
+  root.render(<Root />);
 }
 
 startApp();

@@ -1,6 +1,7 @@
 SHELL=/bin/bash
 RED=\033[0;31m
 GREEN=\033[0;32m
+BG_GREY=\033[48;5;237m
 NC=\033[0m # No Color
 
 envFileLoc = "$(PWD)/configs/envs/local.env"
@@ -33,46 +34,50 @@ clean-dist:  ## Cleaning ./dist folder
 .PHONY: clean-dist
 
 build: clean-dist load-project-env check-env-vars ## Build production version
+	@printf "${BG_GREY}[build] Start${NC}\n"
 	@source $(envFileProd)
-	@npx env-cmd -f $(envFileProd) node --es-module-specifier-resolution=node --trace-warnings \
- 		--loader ts-node/esm ./scripts/webpack.ts \
-		--config ./configs/webpack.config.cjs \
+	@npx env-cmd -f $(envFileProd) node --no-warnings --experimental-specifier-resolution=node \
+		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
+		--config ./configs/webpack.config.ts \
 		--mode production \
 		--env BUILD_ANALYZE=$(BUILD_ANALYZE)
 
-	@printf "${GREEN}build: DONE${NC}\n"
+	@printf "${BG_GREY}[build] Done${NC}\n"
 
 build-analyze: load-project-env check-env-vars ## build and analyze bundle content
 	$(MAKE) build BUILD_ANALYZE=true
 
 build-loc: clean-dist load-project-env check-env-vars ## Build local version
-	@npx env-cmd -f $(envFileLoc) "$(PWD)/devops/local/scripts/check-env-vars.sh"
+	@printf "${BG_GREY}[build-loc] Start${NC}\n"
 	@source $(envFileLoc)
-	@npx env-cmd -f $(envFileLoc) webpack \
-		--config ./configs/webpack.config.cjs \
+	@npx env-cmd -f $(envFileLoc) node --no-warnings --experimental-specifier-resolution=node \
+		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
+		--config ./configs/webpack.config.ts \
 		--mode development \
 		--env BUILD_ANALYZE=$(BUILD_ANALYZE)
-	@printf "${GREEN}build-loc: DONE${NC}\n"
+	@printf "${BG_GREY}[build-loc] DONE${NC}\n"
 
 build-loc-analyze: load-project-env check-env-vars# build and analyze bundle content
 	$(MAKE) build-loc BUILD_ANALYZE=true
 
-
 launch-dev-server: load-project-env check-env-vars ## Launches local Webpack dev-server
-	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
+	@printf "${BG_GREY}[launch-dev-server] Start${NC}\n"
 	@source ${envFileLoc}
-	@npx env-cmd -f ${envFileLoc} webpack-dev-server \
-		--config ./configs/webpack.config.cjs \
+	@npx env-cmd -f $(envFileLoc) node --no-warnings --experimental-specifier-resolution=node \
+		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
 		--mode development \
+		--open --watch \
 		--env BUILD_ANALYZE=false \
-		--open
+	@printf "${BG_GREY}[launch-dev-server] DONE${NC}\n"
 
-watch-loc: ## No dev server - only file watch and rebuild
-	@npx env-cmd -f $(envFileLoc) "${PWD}/devops/local/scripts/check-env-vars.sh"
+
+
+watch-loc: check-env-vars ## No dev server - only file watch and rebuild
 	@source ${envFileLoc}
-	@npx env-cmd -f ${envFileLoc} webpack \
-		--config ./configs/webpack.config.cjs \
-		--watch \
-		--progress \
+	@npx env-cmd -f ${envFileLoc} node --no-warnings --experimental-specifier-resolution=node \
+		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts \
+		--config ./configs/webpack.config.ts \
 		--mode development \
+		--watch --progress \
 		--env BUILD_ANALYZE=false \
+
