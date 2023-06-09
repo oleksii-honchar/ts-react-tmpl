@@ -5,11 +5,11 @@ module.exports = {
   parserOptions: {
     allowImportExportEverywhere: false,
     codeFrame: false,
-    ecmaVersion: 2018,
+    ecmaVersion: "es2022",
     errorOnUnknownASTType: true,
     errorOnTypeScriptSyntacticAndSemanticIssues: true,
-    project: "tsconfig.json",
-    sourceType: "module"
+    project: "tsconfig.all-in-one.json",
+    sourceType: "module",
   },
   extends: [
     "plugin:@typescript-eslint/recommended",
@@ -19,19 +19,16 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
-    "react/react-in-jsx-scope" : 0,
+    "react/react-in-jsx-scope": 0,
     "class-methods-use-this": "off",
-    "dot-notation": ["error", { "allowPattern": "^(code)$" }],
-    "function-paren-newline": [
-      "error",
-      "consistent",
-    ],
+    "dot-notation": ["error", { allowPattern: "^(code)$" }],
+    "function-paren-newline": ["error", "consistent"],
     "import/prefer-default-export": "off",
     "import/no-unresolved": "error",
     "max-len": [
       "error",
       {
-        code: 90,
+        code: 120,
         tabWidth: 2,
         ignoreComments: true,
         ignoreUrls: true,
@@ -40,15 +37,15 @@ module.exports = {
       },
     ],
     "no-unused-vars": "off",
-    "no-underscore-dangle": ["error", { "allow": ["_id", "_headers"] }],
+    "no-underscore-dangle": ["error", { allow: ["_id", "_headers"] }],
     "quote-props": ["error", "consistent-as-needed"],
-    "jsxSingleQuote" : 0,
-    "jsx-quotes": 0
+    jsxSingleQuote: 0,
+    "jsx-quotes": 0,
   },
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
   },
   globals: {
     beforeEach: true,
@@ -57,23 +54,20 @@ module.exports = {
     it: true,
     expect: true,
   },
-  plugins: [
-    "@typescript-eslint",
-    "json",
-    "import"
-  ],
+  plugins: ["@typescript-eslint", "json", "react", "import"],
   settings: {
-    "react": {
+    react: {
+      pragma: "h",
       version: "detect",
     },
-    "import/extensions": [".js",".jsx",".ts",".tsx"],
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts",".tsx"]
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      "typescript": {
-        directory: "./configs/tsconfig.es20.json"
-      }
-    }
+      typescript: {
+        directory: "./configs/tsconfig.es2022.json",
+      },
+    },
   },
 };

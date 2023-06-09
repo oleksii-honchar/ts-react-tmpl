@@ -8,7 +8,7 @@
 - conventional commit
 
 ## Webpack
-- webpack multibuild for es5 & es20
+- webpack multibuild for es2016 & es2022
 - vendor external links
 - ExtractCssChunksPlugin - to export css to separate file when `import` used inside js
 

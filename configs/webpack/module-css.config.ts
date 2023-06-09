@@ -1,16 +1,19 @@
-const ExtractCssChunksPlugin = require('extract-css-chunks-webpack-plugin');
-const path = require("path");
+import ExtractCssChunksPlugin from "extract-css-chunks-webpack-plugin";
+import path from "path";
+import { __dirname } from "scripts/esm-utils.ts";
+import { blablo } from "blablo";
 
-console.log('[config:webpack:snippet] Module-CSS loaded');
+const logHeader = "[webpack:config:snippet] ".cyan;
+blablo.log(logHeader, "loading ", "'Module-CSS'".white.bold).finish();
 
 const isProd = process.env.NODE_ENV === "production";
 
-module.exports = (env) => {
+export const cssModuleConfig = (env: any) => {
   return {
     plugins: [
       new ExtractCssChunksPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css'
+        filename: "[name].css",
+        chunkFilename: "[id].css",
       }),
     ],
     module: {
@@ -24,63 +27,64 @@ module.exports = (env) => {
               options: {
                 hot: !isProd,
                 reloadAll: !isProd,
-                publicPath: '/assets/stylesheets/',
+                publicPath: "/assets/stylesheets/",
               },
             },
-            'style-loader',
+            "style-loader",
             {
-              loader: 'css-loader',
+              loader: "css-loader",
             },
           ],
         },
         {
-          test: /\.p?css$/,
+          test: /\.p?css$/i,
           exclude: /src\/assets/,
           use: [
-            'style-loader',
+            "style-loader",
             {
               loader: ExtractCssChunksPlugin.loader,
               options: {
                 hot: !isProd,
-                reloadAll: !isProd
-              }
+                reloadAll: !isProd,
+              },
             },
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
                 modules: false, // true cause to obfuscation
                 importLoaders: 1,
               },
             },
             {
-              loader: 'postcss-loader',
+              loader: "postcss-loader",
               options: {
-                config: {
+                postcssOptions: {
                   ctx: {
-                    'postcss-preset-env': {
+                    "postcss-preset-env": {
                       stage: 3,
                       features: {
-                        'nesting-rules': true
-                      }
+                        "nesting-rules": true,
+                      },
                     },
-                    'cssnano': {
+                    cssnano: {
                       preset: [
-                        'default',
+                        "default",
                         {
                           discardComments: {
                             removeAll: true,
                           },
-                        }]
+                        },
+                      ],
                     },
-                    'env': process.env.NODE_ENV,
+                    env: process.env.NODE_ENV,
                   },
-                  path: path.join(__dirname, '../webpack/postcss.config.js'),
+                  path: path.join(__dirname(), "./webpack/postcss.config.ts"),
                 },
               },
-            }
-          ]
-        }
-      ]
-    }
-  }
+            },
+          ],
+        },
+      ],
+    },
+  };
 };
