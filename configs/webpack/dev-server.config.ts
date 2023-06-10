@@ -1,9 +1,9 @@
 import path from "path";
 import { blablo } from "blablo";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 
-const logHeader = "[webpack:config:snippet] ".cyan;
-blablo.log(logHeader, "loading ", "'DevServer'".white.bold).finish();
+const logHeader = "[webpack:config:snippet]".cyan;
+blablo.log(logHeader, "loading", "'DevServer'".white.bold).finish();
 
 export const devServerConfig = (env: any) => {
   blablo.cleanLog(logHeader, `Base: processing "${env.TS_TARGET}" config`);
@@ -18,7 +18,7 @@ export const devServerConfig = (env: any) => {
         publicPath: "/assets",
       },
       port: process.env.SERVE_PORT,
-      static: path.join(__dirname(), "../dist"),
+      static: path.join(getRootRepoDir(), "./dist"),
     },
   };
 };

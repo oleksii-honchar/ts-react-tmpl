@@ -1,21 +1,21 @@
 import path from "path";
-import { blablo } from "blablo";
-import { __dirname } from "scripts/esm-utils.js";
-import { createRequire } from "module";
+import purgeCss from "@fullhuman/postcss-purgecss";
 
+import { blablo } from "../../scripts/blablo.ts";
 import { PurgeFromTsx } from "./libs/purge-from-tsx.ts";
 
-const require = createRequire(import.meta.url);
-const logHeader = "[config:purge-css]".cyan;
-blablo.cleanLog(logHeader, "config loaded");
+import { getRootRepoDir } from "../../scripts/esm-utils.ts";
 
-export const purgeCssConfig = require("@fullhuman/postcss-purgecss")({
+const logHeader = "[purge-css:config]".cyan;
+blablo.log(logHeader, "loading config").finish();
+
+// @ts-ignore
+export const purgeCssConfig = purgeCss({
   content: [
-    path.join(__dirname(), "../src/**/*.html"),
-    path.join(__dirname(), "../src/**/*.hbs"),
-    path.join(__dirname(), "../src/**/*.jsx"),
-    path.join(__dirname(), "../src/**/*.tsx"),
-    path.join(__dirname(), "../src/pages/Root/components/Navigation.tsx"),
+    path.join(getRootRepoDir(), "src/**/*.html"),
+    path.join(getRootRepoDir(), "src/**/*.hbs"),
+    path.join(getRootRepoDir(), "src/**/*.jsx"),
+    path.join(getRootRepoDir(), "src/**/*.tsx"),
   ],
   extractors: [
     {

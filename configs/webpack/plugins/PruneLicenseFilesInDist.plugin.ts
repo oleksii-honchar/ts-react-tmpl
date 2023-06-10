@@ -21,10 +21,10 @@ export class PruneLicenseFilesInDist {
     compiler.hooks.done.tap("PruneLicenseFilesInDist", async (compilation: any) => {
       blablo
         .log(
-          "[plugin:PruneLicenseFilesInDist] ".cyan,
+          "[plugin:PruneLicenseFilesInDist]".cyan,
           "looking *.LICENCE.txt to prune in:",
           this.outputPath.yellow,
-          " ❱ ",
+          " ❱",
           `Done ${emoSparkles}`,
         )
         .finish();

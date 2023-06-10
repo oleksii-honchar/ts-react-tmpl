@@ -1,9 +1,9 @@
 import path from "path";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
 
-const logHeader = "[webpack:config:snippet] ".cyan;
-blablo.log(logHeader, "loading ", "'Module'".white.bold).finish();
+const logHeader = "[webpack:config:snippet]".cyan;
+blablo.log(logHeader, "loading", "'Module'".white.bold).finish();
 
 export const moduleConfig = (env: any = {}) => {
   return {
@@ -19,7 +19,7 @@ export const moduleConfig = (env: any = {}) => {
         //   loader: "ts-loader",
         //   options: {
         //     transpileOnly: true,
-        //     configFile: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
+        //     configFile: path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`),
         //   },
         //   exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
         // },
@@ -27,7 +27,7 @@ export const moduleConfig = (env: any = {}) => {
           test: /\.[tj]sx?$/,
           loader: "esbuild-loader",
           options: {
-            tsconfig: path.join(__dirname(), `./tsconfig.${env.TS_TARGET}.json`),
+            tsconfig: path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`),
           },
           exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
         },

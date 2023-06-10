@@ -4,15 +4,15 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 // @ts-ignore
 import LoaderOptionsPlugin from "webpack/lib/LoaderOptionsPlugin";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
 
 const { PruneLicenseFilesInDist } = await import("./plugins/PruneLicenseFilesInDist.plugin.ts");
 
 const logHeader = "[webpack:config:snippet]".cyan;
-blablo.log(logHeader, " loading ", "'Base'".white.bold).finish();
+blablo.log(logHeader, "loading", "'Base'".white.bold).finish();
 
-const outputPath = path.join(__dirname(), "../dist/assets");
+const outputPath = path.join(getRootRepoDir(), "./dist/assets");
 import pkg from "package.json" assert { type: "json" };
 
 export const baseConfig = (env: any = {}) => {
@@ -21,7 +21,7 @@ export const baseConfig = (env: any = {}) => {
   blablo.cleanLog(logHeader, `'Base' processing '${env.TS_TARGET}' config`);
 
   return {
-    stats: { chunks: false },
+    stats: { chunks: false, children: true },
     mode: process.env.NODE_ENV,
     cache: true,
     devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
@@ -30,7 +30,7 @@ export const baseConfig = (env: any = {}) => {
       modules: ["src", "node_modules"],
       plugins: [
         new TsconfigPathsPlugin({
-          configFile: path.join(__dirname(), `./tsconfig.${env.TS_TARGET}.json`),
+          configFile: path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`),
           logLevel: "INFO",
         }),
       ],

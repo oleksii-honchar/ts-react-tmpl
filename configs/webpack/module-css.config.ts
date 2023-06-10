@@ -1,10 +1,10 @@
 import ExtractCssChunksPlugin from "extract-css-chunks-webpack-plugin";
 import path from "path";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
 
-const logHeader = "[webpack:config:snippet] ".cyan;
-blablo.log(logHeader, "loading ", "'Module-CSS'".white.bold).finish();
+const logHeader = "[webpack:config:snippet]".cyan;
+blablo.log(logHeader, "loading", "'Module-CSS'".white.bold).finish();
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -78,7 +78,7 @@ export const cssModuleConfig = (env: any) => {
                     },
                     env: process.env.NODE_ENV,
                   },
-                  path: path.join(__dirname(), "./webpack/postcss.config.ts"),
+                  config: path.join(getRootRepoDir(), "./configs/webpack/postcss.config.ts"),
                 },
               },
             },

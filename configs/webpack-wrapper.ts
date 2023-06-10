@@ -9,7 +9,7 @@ import colors from "colors";
 import * as emoji from "node-emoji";
 
 import { blablo } from "blablo";
-import { __dirname, setCurrMetaUrl } from "scripts/esm-utils.ts";
+import { getRootRepoDir, setCurrMetaUrl } from "scripts/esm-utils.ts";
 import path from "path";
 
 setCurrMetaUrl(import.meta.url);
@@ -28,7 +28,7 @@ const argv = {
 let watching = undefined;
 let devServer = null;
 const operationMode = argv.watch ? (argv.open ? "server" : "watch") : "build";
-const cfgPath = path.join(__dirname(), "../", argv.config);
+const cfgPath = path.join(getRootRepoDir(), argv.config);
 const { configFactory } = await import(cfgPath);
 const config = configFactory({}, argv as any);
 
@@ -64,6 +64,7 @@ if (argv.open && operationMode === "server") {
         stats.toString({
           chunks: true, // Makes the build much quieter
           colors: true, // Shows colors in the console
+          children: true,
         }),
       );
 

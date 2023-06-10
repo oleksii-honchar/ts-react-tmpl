@@ -23,6 +23,7 @@ blablo.cleanLog(logHeader, `starting "${pkg.name}" config composition`);
 
 export const configFactory = (env: any = {}, argv: { mode: string }) => {
   env = env ? env : {};
+  process.env.NODE_ENV = process.env.NODE_ENV || "development";
   env.BUILD_ANALYZE = env.BUILD_ANALYZE ? env.BUILD_ANALYZE : null;
 
   blablo.cleanLog(logHeader, `using "${process.env.NODE_ENV}" mode`);
