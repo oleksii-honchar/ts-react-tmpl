@@ -10,18 +10,9 @@ export function Navigation(): ReactElement {
   `;
 
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top"
-      css={navCss}
-    >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" css={navCss}>
       <a className="navbar-brand" href="#">
-        <img
-          src="images/maze.png"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-          alt=""
-        />
+        <img src="images/maze.png" width="30" height="30" className="d-inline-block align-top" alt="" />
       </a>
       <button
         className="navbar-toggler"

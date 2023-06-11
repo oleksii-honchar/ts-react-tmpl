@@ -16,10 +16,10 @@
     "devops:chmod-scripts": "bash devops/local/scripts/chmod-scripts.sh",
     "launch:loc": "run-p launch:dev-server types:watch",
     "launch:dev-server": "make launch-dev-server",
-    "lint": "npx eslint src --config .eslintrc.cjs  --ext .ts,.tsx,.json --ignore-pattern '/node_modules/*' --ignore-pattern '**/*.d.ts' --ignore-pattern '**/*.spec.ts' --ignore-pattern '/src/assets/**'",
+    "lint": "npx eslint ./src --config .eslintrc.cjs --ext .ts,.tsx,.json --ignore-pattern '/node_modules/*' --ignore-pattern '**/*.d.ts' --ignore-pattern '**/*.spec.ts' --ignore-pattern '/src/assets/**'",
     "lint:fix": "npm run lint -- --fix",
     "start": "npm run launch:loc",
-    "types:check": "tsc -p configs/tsconfig.all-in-one.json",
+    "types:check": "tsc -p configs/tsconfig.es2022.json",
     "types:watch": "npm run types:check -- --watch",
     "watch": "run-p types:watch watch:loc",
     "watch:loc": "make watch-loc"

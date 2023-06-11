@@ -11,9 +11,6 @@ export function Link(props: InferProps<typeof Link.propTypes>): ReactElement {
 }
 
 Link.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   href: PropTypes.string.isRequired,
 };

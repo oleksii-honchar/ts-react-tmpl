@@ -11,29 +11,12 @@ import {
   findIconDefinition,
 } from "@fortawesome/fontawesome-svg-core";
 
-import {
-  faPaperPlane,
-  faCopyright,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebook,
-  faLinkedin,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
+import { faPaperPlane, faCopyright, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
-library.add(
-  faPaperPlane,
-  faCopyright,
-  faFacebook,
-  faLinkedin,
-  faGithub,
-  faCircle
-);
+library.add(faPaperPlane, faCopyright, faFacebook, faLinkedin, faGithub, faCircle);
 
-export function IconStack(
-  props: InferProps<typeof IconStack.propTypes>
-): ReactElement {
+export function IconStack(props: InferProps<typeof IconStack.propTypes>): ReactElement {
   let className = `fa-layers fa-fw`;
   className += props.size ? ` fa-${props.size}` : "";
 
@@ -42,10 +25,7 @@ export function IconStack(
 
 IconStack.propTypes = {
   size: PropTypes.oneOf(["lg", "2x", "3x", "4x", "5x"]),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
 
 export function Icon(props: InferProps<typeof Icon.propTypes>): ReactElement {

@@ -3,9 +3,7 @@ import PropTypes, { InferProps } from "prop-types";
 import { ThemeProvider } from "@emotion/react";
 import Color from "color";
 
-export function StyleThemeProvider(
-  props: InferProps<typeof StyleThemeProvider.propTypes>
-): ReactElement {
+export function StyleThemeProvider(props: InferProps<typeof StyleThemeProvider.propTypes>): ReactElement {
   const colorSystem = {
     primary: {
       main: "#38567b",
@@ -54,8 +52,5 @@ export function StyleThemeProvider(
 }
 
 StyleThemeProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };

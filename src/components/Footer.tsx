@@ -25,9 +25,7 @@ export function Footer(): ReactElement {
                 &nbsp;
                 {moment().format("YYYY")}&nbsp;
                 <span className="name">Oleksii Honchar</span>
-                <span className="sub-title">
-                  &nbsp;- Full-cycle Software Engineer (v2020031315)
-                </span>
+                <span className="sub-title">&nbsp;- Full-cycle Software Engineer (v2020031315)</span>
               </div>
             </td>
           </tr>

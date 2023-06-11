@@ -22,9 +22,8 @@ export const headerCss = css`
   }
 
   .white-shadow {
-    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px,
-      #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px,
-      #fff 0px 0px 10px, #fff 0px 0px 10px;
+    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px, #fff 0px 0px 10px, #fff 0px 0px 10px,
+      #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px;
   }
 
   a {
