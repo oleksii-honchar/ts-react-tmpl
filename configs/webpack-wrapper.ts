@@ -68,7 +68,8 @@ const compiler = webpack(config);
 if (argv.open && operationMode === "server") {
   const devServerOptions = { ...config.devServer, open: true };
   devServer = new WebpackDevServer(devServerOptions, compiler);
-  await devServer.start();
+  // await devServer.start();
+  devServer.start();
   devServer.startCallback(() => {
     blablo.cleanLog(logHeader, `Successfully started server on http://localhost:${config.devServer.port}`);
   });
@@ -91,9 +92,9 @@ if (argv.open && operationMode === "server") {
 
       blablo.cleanLog(
         stats.toString({
-          chunks: true, // Makes the build much quieter
+          chunks: false,
+          children: false,
           colors: true, // Shows colors in the console
-          children: true,
         })
       );
 
