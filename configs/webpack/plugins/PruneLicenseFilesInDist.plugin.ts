@@ -22,10 +22,7 @@ export class PruneLicenseFilesInDist {
       blablo
         .log(
           "[plugin:PruneLicenseFilesInDist]".cyan,
-          "looking *.LICENCE.txt to prune in:",
-          this.outputPath.yellow,
-          " ❱",
-          `Done ${emoSparkles}`,
+          `looking *.LICENCE.txt to prune in: ${this.outputPath.yellow} ❱ Done ${emoSparkles}`
         )
         .finish();
       try {

@@ -1,5 +1,3 @@
-console.log("[config:eslint] config loaded");
-
 module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -8,23 +6,27 @@ module.exports = {
     ecmaVersion: "es2022",
     errorOnUnknownASTType: true,
     errorOnTypeScriptSyntacticAndSemanticIssues: true,
-    project: "tsconfig.all-in-one.json",
+    project: "tsconfig.json",
     sourceType: "module",
   },
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    // "plugin:node/recommended", - enable only for node projects/folders
     "plugin:react/recommended",
+    "plugin:you-dont-need-lodash-underscore/compatible"
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
-    "react/react-in-jsx-scope": 0,
+    "@typescript-eslint/ban-ts-comment": "off",
     "class-methods-use-this": "off",
     "dot-notation": ["error", { allowPattern: "^(code)$" }],
     "function-paren-newline": ["error", "consistent"],
-    "import/prefer-default-export": "off",
-    "import/no-unresolved": "error",
+    jsxSingleQuote: 0,
+    "jsx-quotes": 0,
     "max-len": [
       "error",
       {
@@ -38,9 +40,17 @@ module.exports = {
     ],
     "no-unused-vars": "off",
     "no-underscore-dangle": ["error", { allow: ["_id", "_headers"] }],
+    'prettier/prettier': [
+      'error',
+      {
+        tabWidth: 2,
+        eslintIntegration: true,
+        printWidth: 120,
+      },
+    ],
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/react-in-jsx-scope": 0,
     "quote-props": ["error", "consistent-as-needed"],
-    jsxSingleQuote: 0,
-    "jsx-quotes": 0,
   },
   env: {
     browser: true,
@@ -54,7 +64,7 @@ module.exports = {
     it: true,
     expect: true,
   },
-  plugins: ["@typescript-eslint", "json", "react", "import"],
+  plugins: ["@typescript-eslint", "react", "node", "prettier", "import", "@emotion"],
   settings: {
     react: {
       pragma: "h",
@@ -68,6 +78,7 @@ module.exports = {
       typescript: {
         directory: "./configs/tsconfig.es2022.json",
       },
+      node: true,
     },
   },
 };

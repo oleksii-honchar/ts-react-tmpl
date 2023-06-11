@@ -8,6 +8,8 @@ import minimist from "minimist";
 import colors from "colors";
 import * as emoji from "node-emoji";
 
+import { StringIndex } from "src/typings/index.js";
+import { pick } from "scripts/ts-utils.ts";
 import { blablo } from "blablo";
 import { getRootRepoDir, setCurrMetaUrl } from "scripts/esm-utils.ts";
 import path from "path";
@@ -22,15 +24,42 @@ const argv = {
   config: "./configs/webpack.config.ts",
   watch: false,
   open: false,
+  env: [],
   ...minimist(process.argv.slice(2)),
 };
+
+argv.env = Array.isArray(argv.env) ? argv.env : [argv.env]; // when single param provided it is string, not array
+
+const customEnv = argv.env.reduce((acc: StringIndex, curr: string) => {
+  const [key, value] = curr.split("=");
+  acc[key] = value;
+  return acc;
+}, {});
+
+const env = {
+  ...customEnv,
+  ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER"]),
+};
+
+// Let's check if proper ts-TS_LOADER used
+if (env.TS_LOADER) {
+  const validTSLoaders = ["esbuild", "ts-loader"];
+  const valueIndex = validTSLoaders.indexOf(env.TS_LOADER);
+  if (valueIndex === -1) {
+    blablo.error(`You have to use following options for TS_LOADER: ${validTSLoaders.join(", ")}`.red);
+    process.exit(1);
+  }
+}
+
+// blablo.cleanLog(argv);
+// blablo.cleanLog(env);
 
 let watching = undefined;
 let devServer = null;
 const operationMode = argv.watch ? (argv.open ? "server" : "watch") : "build";
 const cfgPath = path.join(getRootRepoDir(), argv.config);
 const { configFactory } = await import(cfgPath);
-const config = configFactory({}, argv as any);
+const config = configFactory(env, argv as any);
 
 blablo.cleanLog(logHeader, `starting ${operationMode.white.bold}`, emoji.get(emoji.find("rocket")?.key ?? ""));
 
@@ -45,7 +74,7 @@ if (argv.open && operationMode === "server") {
   });
 } else {
   const compilerPromise = new Promise((resolve, reject) => {
-    let errors: any[] = [];
+    const errors: any[] = [];
     const operationCbFn = (err: any, stats: any) => {
       blablo.finish();
       if (err) {
@@ -65,7 +94,7 @@ if (argv.open && operationMode === "server") {
           chunks: true, // Makes the build much quieter
           colors: true, // Shows colors in the console
           children: true,
-        }),
+        })
       );
 
       if (operationMode == "watch") {

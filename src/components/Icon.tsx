@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import PropTypes, { InferProps } from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,18 +8,18 @@ import {
   library,
   IconName,
   IconDefinition,
-  findIconDefinition
+  findIconDefinition,
 } from "@fortawesome/fontawesome-svg-core";
 
 import {
   faPaperPlane,
   faCopyright,
-  faCircle
+  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
   faLinkedin,
-  faGithub
+  faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -44,14 +44,14 @@ IconStack.propTypes = {
   size: PropTypes.oneOf(["lg", "2x", "3x", "4x", "5x"]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export function Icon(props: InferProps<typeof Icon.propTypes>): ReactElement {
   const iconDefinition: IconDefinition = findIconDefinition({
     prefix: props.brand ? "fab" : "fas",
-    iconName: props.name as IconName
+    iconName: props.name as IconName,
   });
 
   return (
@@ -78,9 +78,9 @@ Icon.propTypes = {
   rotation: PropTypes.oneOf([90, 180, 270]),
   spin: PropTypes.bool,
   size: PropTypes.string,
-  transform: PropTypes.string
+  transform: PropTypes.string,
 };
 
 Icon.defaultProps = {
-  className: ""
+  className: "",
 };

@@ -22,11 +22,15 @@ blablo.cleanLog(logHeader, `starting "${pkg.name}" config composition`);
 // `LOG_LEVEL` = error | warn | info | debug
 
 export const configFactory = (env: any = {}, argv: { mode: string }) => {
-  env = env ? env : {};
-  process.env.NODE_ENV = process.env.NODE_ENV || "development";
-  env.BUILD_ANALYZE = env.BUILD_ANALYZE ? env.BUILD_ANALYZE : null;
+  env = {
+    NODE_ENV: "development",
+    BUILD_ANALYZE: null,
+    TS_LOADER: "esbuild", // or ts-build
+    ...env,
+  };
 
-  blablo.cleanLog(logHeader, `using "${process.env.NODE_ENV}" mode`);
+  blablo.cleanLog(logHeader, `using "${env.NODE_ENV}" mode`);
+  // blablo.cleanLog(env);
 
   const envES2022 = { ...env, TS_TARGET: "es2022" };
 
@@ -56,7 +60,7 @@ export const configFactory = (env: any = {}, argv: { mode: string }) => {
     });
   }
 
-  if (process.env.NODE_ENV !== "production") {
+  if (env.NODE_ENV !== "production") {
     blablo.cleanLog("[webpack:config]".cyan, "config composition completed");
     return cfgES2022;
   }

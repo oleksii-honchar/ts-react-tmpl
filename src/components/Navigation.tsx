@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
-import { useTheme } from "@emotion/react";
+import { css, jsx, useTheme } from "@emotion/react";
+import { ReactElement } from "react";
 import { Header } from "src/pages/Root/components/Header.tsx";
-import { StyleThemeProvider } from "src/contexts/StyleThemeProvider.ts";
+import { StyleThemeProvider } from "src/contexts/StyleThemeProvider.tsx";
 
 export function Navigation(): ReactElement {
   const theme: any = useTheme();
@@ -12,9 +10,18 @@ export function Navigation(): ReactElement {
   `;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" css={navCss}>
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top"
+      css={navCss}
+    >
       <a className="navbar-brand" href="#">
-        <img src="images/maze.png" width="30" height="30" className="d-inline-block align-top" alt="" />
+        <img
+          src="images/maze.png"
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+          alt=""
+        />
       </a>
       <button
         className="navbar-toggler"

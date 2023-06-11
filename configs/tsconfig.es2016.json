@@ -17,14 +17,14 @@
     "target": "ES2016",
   },
   "include": [
-    "./src/**/*"
+    "../src/**/*"
   ],
   "exclude": [
-    "./node_modules",
-    "./configs",
-    "./dist",
-    "./docs",
-    "./coverage",
-    "./devops"
+    "../node_modules",
+    "../configs",
+    "../dist",
+    "../docs",
+    "../coverage",
+    "../devops"
   ]
 }

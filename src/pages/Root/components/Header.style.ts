@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 
 export const headerCss = css`
   background-image: url("images/bg-02-flipped.jpg");
@@ -23,8 +22,9 @@ export const headerCss = css`
   }
 
   .white-shadow {
-    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px, #fff 0px 0px 10px, #fff 0px 0px 10px,
-      #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px;
+    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px, #fff 0px 0px 15px,
+      #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px, #fff 0px 0px 10px,
+      #fff 0px 0px 10px, #fff 0px 0px 10px;
   }
 
   a {

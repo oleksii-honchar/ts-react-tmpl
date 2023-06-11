@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
+import { css } from "@emotion/react";
+import { ReactElement } from "react";
 import moment from "moment";
 
 import { Icon } from "src/components/Icon.tsx";
@@ -26,7 +25,9 @@ export function Footer(): ReactElement {
                 &nbsp;
                 {moment().format("YYYY")}&nbsp;
                 <span className="name">Oleksii Honchar</span>
-                <span className="sub-title">&nbsp;- Full-cycle Software Engineer (v2020031315)</span>
+                <span className="sub-title">
+                  &nbsp;- Full-cycle Software Engineer (v2020031315)
+                </span>
               </div>
             </td>
           </tr>

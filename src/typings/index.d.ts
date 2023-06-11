@@ -16,3 +16,7 @@ declare module "*.css" {
   const classNames: IClassNames;
   export = classNames;
 }
+
+declare module "@ciklum/logan";
+
+export type StringIndex = Record<string, any>;

@@ -26,7 +26,13 @@ export const baseConfig = (env: any = {}) => {
     cache: true,
     devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
     resolve: {
-      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".mjs", ".css", ".pcss"],
+      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".css", ".pcss"],
+      // Add support for TypeScripts fully qualified ESM imports.
+      extensionAlias: {
+        ".js": [".js", ".ts"],
+        ".cjs": [".cjs", ".cts"],
+        ".mjs": [".mjs", ".mts"],
+      },
       modules: ["src", "node_modules"],
       plugins: [
         new TsconfigPathsPlugin({
