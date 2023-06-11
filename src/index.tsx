@@ -18,7 +18,3 @@ function startApp(): void {
 }
 
 startApp();
-
-//testing husky
-//testing husky
-//testing husky

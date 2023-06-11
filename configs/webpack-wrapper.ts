@@ -38,7 +38,7 @@ const customEnv = argv.env.reduce((acc: StringIndex, curr: string) => {
 
 const env = {
   ...customEnv,
-  ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER"]),
+  ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER", "LOG_LEVEL"]),
 };
 
 // Let's check if proper ts-TS_LOADER used

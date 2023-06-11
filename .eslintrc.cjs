@@ -21,6 +21,7 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "class-methods-use-this": "off",
     "dot-notation": ["error", { allowPattern: "^(code)$" }],

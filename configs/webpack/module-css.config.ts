@@ -6,9 +6,9 @@ import { blablo } from "blablo";
 const logHeader = "[webpack:config:snippet]".cyan;
 blablo.log(logHeader, "loading", "'Module-CSS'".white.bold).finish();
 
-const isProd = process.env.NODE_ENV === "production";
-
 export const cssModuleConfig = (env: any) => {
+  const isProd = env.NODE_ENV === "production";
+
   return {
     plugins: [
       new ExtractCssChunksPlugin({
@@ -37,7 +37,7 @@ export const cssModuleConfig = (env: any) => {
           ],
         },
         {
-          test: /\.p?css$/i,
+          test: /\.pcss$/i,
           exclude: /src\/assets/,
           use: [
             "style-loader",
@@ -76,7 +76,7 @@ export const cssModuleConfig = (env: any) => {
                         },
                       ],
                     },
-                    env: process.env.NODE_ENV,
+                    env: env.NODE_ENV,
                   },
                   config: path.join(getRootRepoDir(), "./configs/webpack/postcss.config.ts"),
                 },

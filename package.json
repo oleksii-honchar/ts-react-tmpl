@@ -32,6 +32,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "cross-env": "7.0.3",
     "env-cmd": "10.1.0",
     "minimist": "1.2.8",

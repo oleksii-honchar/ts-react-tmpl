@@ -37,7 +37,8 @@ npm install @commitlint/cli --save-dev
 npm install @commitlint/config-conventional --save-dev
 npx husky install # will add .husky folder w/o hooks! Also will change global git config hooksPath -> .husky
 npx husky add .husky/pre-commit "npm run check:all"
-npx husky add .husky/commit-msg "npx commitlint --edit $1 --config=./configs/commitlint.config.cjs"
+npx husky add .husky/commit-msg "npx commitlint --edit $1 --config=./configs/commitlint.config.cjs"git add .husky/commit-msg
+git add .husky/commit-msg .husky/pre-commit
 ```
 
 ## TODO
