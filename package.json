@@ -25,12 +25,6 @@
     "watch:loc": "make watch-loc",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run check:all",
-      "commit-msg": "commitlint --config=./configs/commitlint.config.js"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
