@@ -28,7 +28,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run check:all",
-      "commit-msg": "commitlint -E \$1 --config=./configs/commitlint.config.js"
+      "commit-msg": "commitlint --config=./configs/commitlint.config.js"
     }
   },
   "config": {
