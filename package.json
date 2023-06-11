@@ -22,12 +22,13 @@
     "types:check": "tsc -p configs/tsconfig.es2022.json",
     "types:watch": "npm run types:check -- --watch",
     "watch": "run-p types:watch watch:loc",
-    "watch:loc": "make watch-loc"
+    "watch:loc": "make watch-loc",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run check:all",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS --config=./configs/commitlint.config.js"
+      "commit-msg": "commitlint -E \$1 --config=./configs/commitlint.config.js"
     }
   },
   "config": {
