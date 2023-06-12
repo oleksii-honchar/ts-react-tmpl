@@ -1,4 +1,4 @@
-import ExtractCssChunksPlugin from "extract-css-chunks-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
@@ -9,28 +9,31 @@ blablo.log(logHeader, "loading", "'Module-CSS'".white.bold).finish();
 export const cssModuleConfig = (env: any) => {
   const isProd = env.NODE_ENV === "production";
 
+  const postCssConfigPath = path.join(getRootRepoDir(), "./configs/webpack/postcss.config.ts");
+
+  const plugins = [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+  ];
+
+  const customLoader = {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      publicPath: "/assets/stylesheets/",
+    },
+  };
+
   return {
-    plugins: [
-      new ExtractCssChunksPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
-      }),
-    ],
+    plugins,
     module: {
       rules: [
         {
           test: /\.css$/,
           include: /src\/assets/,
           use: [
-            {
-              loader: ExtractCssChunksPlugin.loader,
-              options: {
-                hot: !isProd,
-                reloadAll: !isProd,
-                publicPath: "/assets/stylesheets/",
-              },
-            },
-            "style-loader",
+            customLoader,
             {
               loader: "css-loader",
             },
@@ -40,14 +43,7 @@ export const cssModuleConfig = (env: any) => {
           test: /\.pcss$/i,
           exclude: /src\/assets/,
           use: [
-            "style-loader",
-            {
-              loader: ExtractCssChunksPlugin.loader,
-              options: {
-                hot: !isProd,
-                reloadAll: !isProd,
-              },
-            },
+            customLoader,
             {
               loader: "css-loader",
               options: {
@@ -60,25 +56,9 @@ export const cssModuleConfig = (env: any) => {
               options: {
                 postcssOptions: {
                   ctx: {
-                    "postcss-preset-env": {
-                      stage: 3,
-                      features: {
-                        "nesting-rules": true,
-                      },
-                    },
-                    cssnano: {
-                      preset: [
-                        "default",
-                        {
-                          discardComments: {
-                            removeAll: true,
-                          },
-                        },
-                      ],
-                    },
                     env: env.NODE_ENV,
                   },
-                  config: path.join(getRootRepoDir(), "./configs/webpack/postcss.config.ts"),
+                  config: postCssConfigPath,
                 },
               },
             },
