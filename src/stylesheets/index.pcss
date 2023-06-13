@@ -1,13 +1,14 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Inter var', sans-serif; }
+}
 
 html {
   font-size: calc(15px + 0.390625vw);
-}
-
-body {
-  font-family: 'Helvetica Neue', sans-serif !important;
 }
 
 .test {

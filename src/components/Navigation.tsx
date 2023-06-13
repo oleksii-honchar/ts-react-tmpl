@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
-import { useTheme } from "@emotion/react";
+import { css, jsx, useTheme } from "@emotion/react";
+import { ReactElement } from "react";
 import { Header } from "src/pages/Root/components/Header.tsx";
-import { StyleThemeProvider } from "src/contexts/StyleThemeProvider.ts";
+import { StyleThemeProvider } from "src/contexts/StyleThemeProvider.tsx";
 
 export function Navigation(): ReactElement {
   const theme: any = useTheme();

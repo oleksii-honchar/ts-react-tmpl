@@ -1,37 +1,23 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
+  "extends": "./configs/tsconfig.base.json",
   "ts-node": {
     "esm": true,
     "transpileOnly": true
   },
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
     "baseUrl": "./",
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "lib": [ "DOM", "esnext"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "noEmit": true,
-    "noImplicitAny": true,
     "paths": {
       "src/*": [ "./src/*" ],
       "scripts/*": [ "./scripts/*" ],
       "blablo": ["./scripts/blablo.ts"],
       "package.json": ["./package.json"]
     },
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
     "target": "esnext",
-    "types": ["node"]
   },
   "include": [
     "./**/*"

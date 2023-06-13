@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import PropTypes, { InferProps } from "prop-types";
 import { ThemeProvider } from "@emotion/react";
 import Color from "color";

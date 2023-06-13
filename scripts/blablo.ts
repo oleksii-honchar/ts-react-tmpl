@@ -50,8 +50,8 @@ class Blablo {
     if (this.currSpinner.isSpinning) {
       // need to check whether it is new log or the same just updating
       // assume that first 20 chars will remain the same for same sequence
-      const currPayload = this.argsQueue.join("");
-      const nextPayload = args.join("");
+      const currPayload = this.argsQueue.join(" ");
+      const nextPayload = args.join(" ");
       if (currPayload.slice(0, 40) !== nextPayload.slice(0, 40)) {
         this.currSpinner.succeed();
       }
@@ -59,7 +59,7 @@ class Blablo {
 
     this.argsQueue = [...args];
 
-    this.currSpinner.text = this.argsQueue.join("");
+    this.currSpinner.text = this.argsQueue.join(" ");
     !this.currSpinner.isSpinning && this.currSpinner.start();
     return this; // in order to be able to call clear()
   }

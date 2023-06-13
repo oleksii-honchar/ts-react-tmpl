@@ -67,7 +67,8 @@ launch-dev-server: load-project-env check-env-vars ## Launches local Webpack dev
 		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
 		--mode development \
 		--open --watch \
-		--env BUILD_ANALYZE=false \
+		--env BUILD_ANALYZE=false
+
 	@printf "${BG_GREY}[launch-dev-server] DONE${NC}\n"
 
 

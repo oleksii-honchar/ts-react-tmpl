@@ -1,36 +1,49 @@
 import path from "path";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
 
-const logHeader = "[webpack:config:snippet] ".cyan;
-blablo.log(logHeader, "loading ", "'Module'".white.bold).finish();
+const logHeader = "[webpack:config:snippet]".cyan;
+blablo.log(logHeader, "loading", "'Module'".white.bold).finish();
 
 export const moduleConfig = (env: any = {}) => {
+  let tsLoaderCfg: any = {
+    test: /\.([cm]?ts|tsx)$/,
+    exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
+  };
+  const tsConfigFilePath = path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`);
+
+  switch (env.TS_LOADER) {
+    case "esbuild":
+      tsLoaderCfg = {
+        ...tsLoaderCfg,
+        loader: "esbuild-loader",
+        options: {
+          tsconfig: tsConfigFilePath,
+        },
+      };
+      break;
+    case "ts-loader":
+      tsLoaderCfg = {
+        ...tsLoaderCfg,
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true,
+          configFile: tsConfigFilePath,
+        },
+      };
+      break;
+  }
+
+  blablo.cleanLog(logHeader, "'Module'".white.bold, "❱", `using "${env.TS_LOADER.white.bold}" loader`);
   return {
     module: {
       rules: [
         {
           enforce: "pre",
-          test: /\.[tj]sx?$/,
+          test: tsLoaderCfg.test,
           use: "source-map-loader",
         },
-        // {
-        //   test: /\.[tj]sx?$/,
-        //   loader: "ts-loader",
-        //   options: {
-        //     transpileOnly: true,
-        //     configFile: path.join(__dirname, `../tsconfig.${env.TS_TARGET}.json`),
-        //   },
-        //   exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
-        // },
-        {
-          test: /\.[tj]sx?$/,
-          loader: "esbuild-loader",
-          options: {
-            tsconfig: path.join(__dirname(), `./tsconfig.${env.TS_TARGET}.json`),
-          },
-          exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
-        },
+        { ...tsLoaderCfg },
         {
           test: /\.(eot|ttf|woff|woff2)$/,
           use: {

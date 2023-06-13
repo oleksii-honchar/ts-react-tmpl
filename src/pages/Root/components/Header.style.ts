@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 
 export const headerCss = css`
   background-image: url("images/bg-02-flipped.jpg");

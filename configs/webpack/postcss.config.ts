@@ -1,28 +1,29 @@
+import path from "path";
 import { createRequire } from "module";
 
-import { purgeCssConfig } from "./purgecss.config.js";
-import { blablo } from "blablo";
+import { purgeCssConfig } from "./purgecss.config.ts";
+import { blablo } from "../../scripts/blablo.ts";
+import type { StringIndex } from "../../src/typings/index.d.ts";
+import { getRootRepoDir } from "../../scripts/esm-utils.ts";
 
 const require = createRequire(import.meta.url);
-const logHeader = "[config:post-css] ".cyan;
+const logHeader = "[post-css:config]".cyan;
 blablo.log(logHeader, "loading config").finish();
 
-export const postCssConfig = async (params: { file: any; options: any; env: any }) => {
-  const mdlPostCssImport = require("postcss-import");
-  const postCssImport = mdlPostCssImport({ root: params?.file?.dirname });
+export default function postCssConfig(params: { file: any; options: StringIndex; env: any }) {
+  const tailwindConfigPath = path.join(getRootRepoDir(), "configs/webpack/tailwind.config.cjs");
+  const tailwind = require("tailwindcss")(require(tailwindConfigPath));
 
-  //  require("tailwindcss"),
-  // TODO: add Tailwindcss
-  let postCssPresetEnv: any = false;
-  if (params.options["postcss-preset-env"]) {
-    const mdl = require("postcss-preset-env");
-    postCssPresetEnv = mdl({
-      stage: 3,
-      features: {
-        "nesting-rules": true,
-      },
-    });
-  }
+  const mdlPostCssImport = require("postcss-import");
+  const postCssImport = mdlPostCssImport({ root: path.dirname(params?.file) });
+
+  const mdl = require("postcss-preset-env");
+  const postCssPresetEnv = mdl({
+    stage: 3,
+    features: {
+      "nesting-rules": true,
+    },
+  });
 
   let cssNanoCfg: any = null;
   if (params.env === "production") {
@@ -42,6 +43,12 @@ export const postCssConfig = async (params: { file: any; options: any; env: any 
   }
 
   return {
-    plugins: [postCssImport, postCssPresetEnv, cssNanoCfg, params.env === "production" ? purgeCssConfig : false],
+    plugins: [
+      tailwind,
+      postCssImport,
+      postCssPresetEnv,
+      cssNanoCfg,
+      params.env === "production" ? purgeCssConfig : false,
+    ],
   };
-};
+}

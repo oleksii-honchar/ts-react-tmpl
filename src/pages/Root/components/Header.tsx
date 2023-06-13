@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { headerCss } from "./Header.style.ts";
 

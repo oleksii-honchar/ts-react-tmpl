@@ -22,10 +22,10 @@ export default class GenerateIndexHTML {
         () => {
           // get the file main.js
           blablo.log(
-            "[GenerateIndexHTML:plugin] ".cyan,
-            "processing asset ",
+            "[GenerateIndexHTML:plugin]".cyan,
+            "processing asset",
             "index.hbs".green.bold,
-            " ❱ ",
+            " ❱",
             "dist/index.html".green.bold,
           );
           generateIndexHtml(this.env);

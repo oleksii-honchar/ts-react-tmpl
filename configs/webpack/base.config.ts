@@ -4,15 +4,15 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 // @ts-ignore
 import LoaderOptionsPlugin from "webpack/lib/LoaderOptionsPlugin";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
-import { __dirname } from "scripts/esm-utils.ts";
+import { getRootRepoDir } from "scripts/esm-utils.ts";
 import { blablo } from "blablo";
 
 const { PruneLicenseFilesInDist } = await import("./plugins/PruneLicenseFilesInDist.plugin.ts");
 
 const logHeader = "[webpack:config:snippet]".cyan;
-blablo.log(logHeader, " loading ", "'Base'".white.bold).finish();
+blablo.log(logHeader, "loading", "'Base'".white.bold).finish();
 
-const outputPath = path.join(__dirname(), "../dist/assets");
+const outputPath = path.join(getRootRepoDir(), "./dist/assets");
 import pkg from "package.json" assert { type: "json" };
 
 export const baseConfig = (env: any = {}) => {
@@ -21,16 +21,22 @@ export const baseConfig = (env: any = {}) => {
   blablo.cleanLog(logHeader, `'Base' processing '${env.TS_TARGET}' config`);
 
   return {
-    stats: { chunks: false },
-    mode: process.env.NODE_ENV,
+    stats: { chunks: false, children: true },
+    mode: env.NODE_ENV,
     cache: true,
-    devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
+    devtool: env.NODE_ENV === "production" ? false : "inline-source-map",
     resolve: {
-      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".mjs", ".css", ".pcss"],
+      extensions: [".js", ".jsx", ".html", ".ts", ".tsx", ".css", ".pcss"],
+      // Add support for TypeScripts fully qualified ESM imports.
+      extensionAlias: {
+        ".js": [".js", ".ts"],
+        ".cjs": [".cjs", ".cts"],
+        ".mjs": [".mjs", ".mts"],
+      },
       modules: ["src", "node_modules"],
       plugins: [
         new TsconfigPathsPlugin({
-          configFile: path.join(__dirname(), `./tsconfig.${env.TS_TARGET}.json`),
+          configFile: path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`),
           logLevel: "INFO",
         }),
       ],
@@ -48,15 +54,15 @@ export const baseConfig = (env: any = {}) => {
       }),
       new webpack.DefinePlugin({
         "process.env": {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          LOG_LEVEL: JSON.stringify(process.env.LOG_LEVEL),
+          NODE_ENV: JSON.stringify(env.NODE_ENV),
+          LOG_LEVEL: JSON.stringify(env.LOG_LEVEL),
           PKG_NAME: JSON.stringify(pkg.name),
           PKG_VERSION: JSON.stringify(pkg.version),
         },
       }),
       new LoaderOptionsPlugin({
-        debug: process.env.NODE_ENV !== "production",
-        minimize: process.env.NODE_ENV === "production",
+        debug: env.NODE_ENV !== "production",
+        minimize: env.NODE_ENV === "production",
       }),
       new CopyWebpackPlugin({
         patterns: [

@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import React, { ReactElement } from "react";
+import { css } from "@emotion/react";
+import { ReactElement } from "react";
 import moment from "moment";
 
 import { Icon } from "src/components/Icon.tsx";
