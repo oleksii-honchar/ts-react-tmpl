@@ -17,7 +17,7 @@ export const devServerConfig = (env: any) => {
         writeToDisk: true,
         publicPath: "/assets",
       },
-      port: process.env.SERVE_PORT,
+      port: env.SERVE_PORT,
       static: path.join(getRootRepoDir(), "./dist"),
     },
   };

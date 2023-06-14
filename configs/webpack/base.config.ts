@@ -21,7 +21,7 @@ export const baseConfig = (env: any = {}) => {
   blablo.cleanLog(logHeader, `'Base' processing '${env.TS_TARGET}' config`);
 
   return {
-    stats: { chunks: false, children: true },
+    stats: "minimal",
     mode: env.NODE_ENV,
     cache: true,
     devtool: env.NODE_ENV === "production" ? false : "inline-source-map",
@@ -50,7 +50,7 @@ export const baseConfig = (env: any = {}) => {
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
-        maxChunks: 1,
+        maxChunks: 2,
       }),
       new webpack.DefinePlugin({
         "process.env": {
@@ -85,8 +85,8 @@ export const baseConfig = (env: any = {}) => {
     ],
     node: false,
     watchOptions: {
-      poll: 3000,
-      aggregateTimeout: 3000,
+      poll: 1000,
+      aggregateTimeout: 1000,
     },
   };
 };
