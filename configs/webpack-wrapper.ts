@@ -19,17 +19,21 @@ colors.enable();
 
 const logHeader = "[Webpack]".cyan.bold;
 const emoSparkles: any = emoji.get(emoji.find("✨")?.key ?? "");
+const parsedArgs = minimist(process.argv.slice(2));
 const argv = {
   mode: "development",
   config: "./configs/webpack.config.ts",
   watch: false,
   open: false,
+  stats: "minimal",
+  launchDevServer: !!parsedArgs["launch-dev-server"],
   env: [],
-  ...minimist(process.argv.slice(2)),
+  ...parsedArgs,
 };
 
+// additional env vars can be passed through Webpack "--env VAR=VALUE" param
+// for every VAR needs to be used new --env param, e.g. "--env VAR1=V1 --env VAR2=V2"
 argv.env = Array.isArray(argv.env) ? argv.env : [argv.env]; // when single param provided it is string, not array
-
 const customEnv = argv.env.reduce((acc: StringIndex, curr: string) => {
   const [key, value] = curr.split("=");
   acc[key] = value;
@@ -38,7 +42,7 @@ const customEnv = argv.env.reduce((acc: StringIndex, curr: string) => {
 
 const env = {
   ...customEnv,
-  ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER", "LOG_LEVEL"]),
+  ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER", "LOG_LEVEL", "SERVE_PORT"]),
 };
 
 // Let's check if proper ts-TS_LOADER used
@@ -54,9 +58,12 @@ if (env.TS_LOADER) {
 // blablo.cleanLog(argv);
 // blablo.cleanLog(env);
 
-let watching = undefined;
+// Param "--watch" used to enable "build + watch" mode
+// Param "--launch-dev-server" used to enable "build + static serv" mode
+// Param "--open" used to open browser after build. This param works only with --launch-dev-server
+let watching = null;
 let devServer = null;
-const operationMode = argv.watch ? (argv.open ? "server" : "watch") : "build";
+const operationMode = argv.launchDevServer ? "server" : argv.watch ? "watch" : "build";
 const cfgPath = path.join(getRootRepoDir(), argv.config);
 const { configFactory } = await import(cfgPath);
 const config = configFactory(env, argv as any);
@@ -64,16 +71,21 @@ const config = configFactory(env, argv as any);
 blablo.cleanLog(logHeader, `starting ${operationMode.white.bold}`, emoji.get(emoji.find("rocket")?.key ?? ""));
 
 // @ts-ignore
-const compiler = webpack(config);
-if (argv.open && operationMode === "server") {
-  const devServerOptions = { ...config.devServer, open: true };
+
+if (operationMode === "server") {
+  // expecting config here to be object, not [{},{}]
+  const compiler = webpack({ ...config, stats: argv.stats });
+  const devServerOptions = { ...config.devServer, open: argv.open };
   devServer = new WebpackDevServer(devServerOptions, compiler);
-  // await devServer.start();
-  devServer.start();
+  // devServer.start();
   devServer.startCallback(() => {
-    blablo.cleanLog(logHeader, `Successfully started server on http://localhost:${config.devServer.port}`);
+    blablo.cleanLog(
+      logHeader,
+      `Successfully started server on ${`http://localhost:${config.devServer.port}`.cyan.bold}`
+    );
   });
 } else {
+  const compiler = webpack(config);
   const compilerPromise = new Promise((resolve, reject) => {
     const errors: any[] = [];
     const operationCbFn = (err: any, stats: any) => {
@@ -118,7 +130,7 @@ if (argv.open && operationMode === "server") {
     if (operationMode === "build") {
       compiler.run(operationCbFn);
     } else if (operationMode === "watch") {
-      watching = compiler.watch({ aggregateTimeout: 300, poll: undefined }, operationCbFn);
+      watching = compiler.watch(config.watchOptions, operationCbFn);
     }
   });
 
