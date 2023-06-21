@@ -11,7 +11,7 @@ const logHeader = "[post-css:config]".cyan;
 blablo.log(logHeader, "loading config").finish();
 
 export default function postCssConfig(params: { file: any; options: StringIndex; env: any }) {
-  const tailwindConfigPath = path.join(getRootRepoDir(), "configs/webpack/tailwind.config.cjs");
+  const tailwindConfigPath = path.join(getRootRepoDir(), "tailwind.config.cjs");
   const tailwind = require("tailwindcss")(require(tailwindConfigPath));
 
   const mdlPostCssImport = require("postcss-import");
