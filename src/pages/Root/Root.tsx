@@ -1,10 +1,10 @@
 import { ReactElement, Fragment } from "react";
-import { Navbar } from "./components/Navbar.tsx";
+import { PageNavbar } from "../../components/PageNavbar.tsx";
 
 export function Root(): ReactElement {
   return (
-    <div className="min-h-screen bg-color-gray-100">
-      <Navbar />
+    <div className="min-h-screen bg-md3-sys-light-surface">
+      <PageNavbar />
     </div>
   );
 }

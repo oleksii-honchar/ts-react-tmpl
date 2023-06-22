@@ -1,7 +1,8 @@
-import { classNames, navigationItems } from "./navbar.utils.ts";
+import { classNames } from "../utils/navbar.utils.ts";
+import { navigationItems } from "src/models/navData.ts";
 import { Disclosure } from "@headlessui/react";
 
-export function MobileMenuItems() {
+export function PageMobileNavItems() {
   return (
     <Disclosure.Panel className="sm:hidden">
       <div className="space-y-1 px-2 pb-3 pt-2">
