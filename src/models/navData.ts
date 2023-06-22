@@ -1,4 +1,4 @@
 export const navigationItems = [
-  { name: "About", href: "#", current: true },
-  { name: "Palette", href: "#", current: false },
+  { name: "About", href: "#about", current: true },
+  { name: "Palette", href: "#palette", current: false },
 ];

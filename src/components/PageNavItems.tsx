@@ -1,11 +1,16 @@
-import { classNames } from "../utils/navbar.utils.ts";
+import { useContext } from "react";
+import { classNames } from "src/utils/navbar.utils.ts";
 import { navigationItems } from "src/models/navData.ts";
+import { NavigationContext } from "src/contexts/NavigationContext.ts";
+
 export function PageNavItems() {
+  const navigate = useContext(NavigationContext);
   return (
     <div className="hidden sm:block absolute right-0">
       <div className="flex space-x-4">
         {navigationItems.map((item) => (
           <a
+            onClick={() => navigate(item.href)}
             key={item.name}
             href={item.href}
             className={classNames(
