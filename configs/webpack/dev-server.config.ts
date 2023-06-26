@@ -15,8 +15,9 @@ export const devServerConfig = (env: any) => {
       },
       devMiddleware: {
         writeToDisk: true,
-        publicPath: "/assets",
+        publicPath: "/",
       },
+      historyApiFallback: true,
       port: env.SERVE_PORT,
       static: path.join(getRootRepoDir(), "./dist"),
     },

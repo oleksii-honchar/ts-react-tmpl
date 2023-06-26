@@ -23,6 +23,5 @@ export type StringIndex = Record<string, any>;
 
 export type NavigationItem = {
   name: string;
-  href: string;
-  isActive: boolean;
+  path: string;
 };

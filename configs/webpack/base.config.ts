@@ -46,7 +46,7 @@ export const baseConfig = (env: any = {}) => {
       filename: `[name].bundle.${outputSuff}`,
       chunkFilename: `[name].bundle.${outputSuff}`,
       sourceMapFilename: `[name].${env.TS_TARGET}.map`,
-      publicPath: "/assets",
+      publicPath: "/",
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({

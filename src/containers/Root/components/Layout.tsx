@@ -1,9 +1,13 @@
+import { Outlet } from "react-router-dom";
+
 import { PageNavbar } from "src/components/PageNavbar.tsx";
-export function Layout({ children, isPending }) {
+export function Layout({}) {
   return (
     <div className="min-h-screen bg-md3-sys-light-surface">
       <PageNavbar />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }
