@@ -9,8 +9,14 @@ export function PageMobileNavItems() {
   return (
     <Disclosure.Panel className="sm:hidden">
       {({ close }) => (
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {navItems.map((item) => (
+        <div
+          className={`
+          space-y-1 px-2 pb-3 pt-2 absolute right-0 w-full
+          shadow-lg
+          bg-md3-ref-primary-primary50
+        `}
+        >
+          {navItems!.map((item) => (
             <NavLink
               onClick={() => {
                 close();
@@ -19,7 +25,12 @@ export function PageMobileNavItems() {
               to={item.path}
               className={({ isActive, isPending }) => {
                 return classNames(
-                  isActive ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                  isActive
+                    ? "text-md3-sys-light-on-primary bg-md3-ref-primary-primary40"
+                    : `text-md3-sys-light-on-primary/80 bg-md3-ref-primary-primary40/20
+                      hover:text-md3-sys-light-on-primary/90
+                      hover:bg-md3-ref-primary-primary40/40
+                    `,
                   "block rounded-md px-3 py-2 text-base font-medium"
                 );
               }}

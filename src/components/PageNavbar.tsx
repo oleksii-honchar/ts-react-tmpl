@@ -6,7 +6,7 @@ import { PageNavItems } from "./PageNavItems.tsx";
 import { Title } from "./Title.tsx";
 export function PageNavbar() {
   return (
-    <Disclosure as="nav" className="bg-md3-sys-light-surface-container">
+    <Disclosure as="nav" className="bg-md3-ref-primary-primary50 shadow-lg">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

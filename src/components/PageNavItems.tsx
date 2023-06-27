@@ -16,10 +16,10 @@ export function PageNavItems() {
             className={({ isActive, isPending }) => {
               return classNames(
                 isActive
-                  ? "bg-md3-sys-light-secondary-container text-md3-sys-light-on-surface"
-                  : `text-md3-sys-light-on-surface-variant 
-                   hover:bg-md3-state-layers-light-on-surface-opacity-0.08/10 
-                   hover:text-md3-sys-light-on-surface-variant`,
+                  ? "text-md3-sys-light-on-primary bg-md3-ref-primary-primary40"
+                  : `text-md3-sys-light-on-primary/80 bg-md3-ref-primary-primary40/20 
+                   hover:text-md3-sys-light-on-primary/90
+                   hover:bg-md3-ref-primary-primary40/40`,
                 "rounded-md px-3 py-2 text-sm font-medium"
               );
             }}
