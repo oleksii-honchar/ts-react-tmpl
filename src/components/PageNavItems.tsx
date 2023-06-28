@@ -17,10 +17,10 @@ export function PageNavItems() {
               return classNames(
                 isActive
                   ? "text-md3-sys-light-on-primary bg-md3-ref-primary-primary40"
-                  : `text-md3-sys-light-on-primary/80 bg-md3-ref-primary-primary40/20 
+                  : `text-md3-sys-light-on-primary/90  
                    hover:text-md3-sys-light-on-primary/90
                    hover:bg-md3-ref-primary-primary40/40`,
-                "rounded-md px-3 py-2 text-sm font-medium"
+                "rounded-full px-3 py-2 text-sm font-medium"
               );
             }}
           >
