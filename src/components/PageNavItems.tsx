@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { classNames } from "src/utils/navbar.utils.ts";
+import { classNames } from "src/utils/classNames.ts";
 import { NavigationContext } from "src/contexts/NavigationContext.tsx";
 
 export function PageNavItems() {

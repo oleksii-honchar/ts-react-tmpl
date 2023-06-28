@@ -10,7 +10,7 @@ export function PageNavbar() {
       {({ open }) => (
         <>
           <div className="mx-auto px-2 max-w-2xl">
-            <div className="relative flex h-16 items-center justify-between">
+            <div className="relative flex h-12 items-center justify-between">
               <PageNavHamburgerButton open={open} />
               <div className="flex flex-1 items-center justify-center  sm:justify-start">
                 <Logo />

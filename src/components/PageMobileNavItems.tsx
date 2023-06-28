@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { classNames } from "../utils/navbar.utils.ts";
+import { classNames } from "src/utils/classNames.ts";
 import { Disclosure } from "@headlessui/react";
 import { useContext } from "react";
 import { NavigationContext } from "src/contexts/NavigationContext.tsx";
