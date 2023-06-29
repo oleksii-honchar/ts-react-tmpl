@@ -16,7 +16,7 @@ const get = (obj, path, defaultValue = undefined) => {
   const result = travel(/[,[\]]+?/) || travel(/[,[\].]+?/);
   return result === undefined || result === obj ? defaultValue : result;
 };
-export const _ = {
+export const nl = {
   pick: pick,
   get: get,
 };
