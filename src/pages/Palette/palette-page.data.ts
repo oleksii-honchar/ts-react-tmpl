@@ -4,26 +4,26 @@ import * as palette from "src/stylesheets/md3-design-tokens-v1.ts";
 export const keyColors = [
   {
     name: "Primary",
-    bgColor: "primary",
-    textColor: "on-primary",
+    bgColor: "bg-md3-key-colors-primary",
+    textColor: "text-md3-sys-light-on-primary",
     colorHash: nl.get(palette, "colors.md3.key-colors.primary"),
   },
   {
     name: "Secondary",
-    bgColor: "secondary",
-    textColor: "on-secondary",
+    bgColor: "bg-md3-key-colors-secondary",
+    textColor: "text-md3-sys-light-on-secondary",
     colorHash: nl.get(palette, "colors.md3.key-colors.secondary"),
   },
   {
     name: "Neutral",
-    bgColor: "neutral",
-    textColor: "on-surface",
+    bgColor: "bg-md3-key-colors-neutral",
+    textColor: "text-md3-sys-light-on-surface",
     colorHash: nl.get(palette, "colors.md3.key-colors.neutral"),
   },
   {
     name: "N. Variant",
-    bgColor: "neutral-variant",
-    textColor: "on-surface",
+    bgColor: "bg-md3-key-colors-neutral-variant",
+    textColor: "text-md3-sys-light-on-surface",
     colorHash: nl.get(palette, "colors.md3.key-colors.neutral-variant"),
   },
 ];
@@ -119,6 +119,9 @@ export const paletteColors = [
       shadeName: "P-10",
     },
   ],
+];
+
+export const surfaceColors = [
   [
     {
       name: "Background",
@@ -132,7 +135,7 @@ export const paletteColors = [
       bgColor: "bg-md3-sys-light-on-background",
       textColor: "text-md3-sys-light-background",
       colorHash: nl.get(palette, "colors.md3.sys.light.on-background"),
-      shadeName: "Neutral-99",
+      shadeName: "Neutral-10",
     },
     {
       name: "Outline",
@@ -177,6 +180,22 @@ export const paletteColors = [
       textColor: "text-md3-sys-light-surface",
       colorHash: nl.get(palette, "colors.md3.sys.light.on-surface-variant"),
       shadeName: "NeutralVariant-30",
+    },
+  ],
+  [
+    {
+      name: "Surface Bright",
+      bgColor: "bg-md3-sys-light-surface-bright",
+      textColor: "text-md3-sys-light-on-surface-bright",
+      colorHash: nl.get(palette, "colors.md3.sys.light.surface.bright"),
+      shadeName: "N-98",
+    },
+    {
+      name: "Surface Dim",
+      bgColor: "bg-md3-sys-light-surface-dim",
+      textColor: "text-md3-sys-light-on-surface-dim",
+      colorHash: nl.get(palette, "colors.md3.sys.light.surface.dim"),
+      shadeName: "N-98",
     },
   ],
 ];

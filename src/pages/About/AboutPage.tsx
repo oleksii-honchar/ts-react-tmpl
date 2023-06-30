@@ -1,7 +1,9 @@
+import { Breadcrumbs } from "src/components/Breadcrumbs.tsx";
+
 export function AboutPage() {
   return (
-    <div>
-      <h1>About Page</h1>
-    </div>
+    <article>
+      <Breadcrumbs data={["About"]} />
+    </article>
   );
 }

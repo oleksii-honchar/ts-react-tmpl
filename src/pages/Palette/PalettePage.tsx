@@ -1,5 +1,6 @@
 import type { StringIndex } from "src/typings/index.d.ts";
-import { keyColors, paletteColors } from "./palette-page.data.ts";
+import { keyColors, paletteColors, surfaceColors } from "./palette-page.data.ts";
+import { Breadcrumbs } from "src/components/Breadcrumbs.tsx";
 
 function ColorHash({ color }: StringIndex) {
   return (
@@ -31,8 +32,8 @@ function KeyColor({ name, textColor, bgColor, colorHash }: StringIndex) {
     <div
       className={`
       flex items-start justify-center w-full p-1
-      text-md3-sys-light-${textColor}
-      bg-md3-key-colors-${bgColor}
+      ${textColor}
+      ${bgColor}
       shadow-md relative text-base
     `}
     >
@@ -70,20 +71,29 @@ function PaletteColorRow({ colorRow }: StringIndex) {
 export function PalettePage() {
   return (
     <article>
-      <h1 className="text-2xl font-bold py-6 text-md3-sys-light-on-surface">Palette</h1>
+      <Breadcrumbs data={["Palette", "Light Theme"]} />
       <section>
-        <h2 className="text-xl font-bold text-md3-sys-light-on-surface">Light Theme</h2>
-        <section className="flex flex-wrap gap-6 py-4">
-          <div className="flex items-stretch h-12 w-full gap-2 justify-between">
-            {keyColors.map((color) => (
-              <KeyColor key={color.name} {...color} />
-            ))}
-          </div>
-          <div className="flex flex-col items-stretch w-full gap-2 justify-between">
-            {paletteColors.map((colorRow, idx) => (
-              <PaletteColorRow key={idx} colorRow={colorRow} />
-            ))}
-          </div>
+        <section className="flex flex-row flex-wrap">
+          <section id="shades" className="flex flex-wrap gap-6 py-4 w-1/3">
+            Shades
+          </section>
+          <section id="colors" className="flex flex-wrap gap-6 py-4 w-2/3">
+            <div className="flex items-stretch h-12 w-full gap-2 justify-between">
+              {keyColors.map((color) => (
+                <KeyColor key={color.name} {...color} />
+              ))}
+            </div>
+            <div className="flex flex-col items-stretch w-full gap-2 justify-between">
+              {paletteColors.map((colorRow, idx) => (
+                <PaletteColorRow key={idx} colorRow={colorRow} />
+              ))}
+            </div>
+            <div className="flex flex-col items-stretch w-full gap-2 justify-between">
+              {surfaceColors.map((colorRow, idx) => (
+                <PaletteColorRow key={idx} colorRow={colorRow} />
+              ))}
+            </div>
+          </section>
         </section>
       </section>
     </article>
