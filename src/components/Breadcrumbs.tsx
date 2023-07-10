@@ -1,14 +1,14 @@
 import { StringIndex } from "src/typings/index.js";
 import { classNames } from "src/utils/classNames.ts";
 
-function SingleCrumb({ item, key, isLast }: StringIndex) {
+function SingleCrumb({ item, keyId, isLast }: StringIndex) {
   return (
     <li
       className={classNames(
         `text-md3-sys-light-on-surface-variant hover:text-md3-sys-light-secondary`,
         "flex cursor-pointer items-center font-sans text-sm font-normal leading-normal antialiased transition-colors duration-300"
       )}
-      key={key}
+      key={keyId}
     >
       <a className={classNames(isLast ? `font-medium` : false)} href="#">
         <span>{item}</span>
@@ -25,7 +25,7 @@ export function Breadcrumbs({ data }: StringIndex) {
   return (
     <div className="w-1/2 text-left">
       <nav aria-label="breadcrumb" className="w-max">
-        <ol className="flex w-full flex-wrap items-center py-2 px-2">
+        <ol className="flex w-full flex-wrap items-center py-2 pr-2">
           <li
             className={`
                 flex cursor-pointer items-center font-sans text-sm font-normal leading-normal 

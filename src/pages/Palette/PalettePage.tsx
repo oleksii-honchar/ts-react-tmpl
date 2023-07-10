@@ -7,7 +7,7 @@ function ColorHash({ color }: StringIndex) {
     <div
       className={`
         absolute bottom-0 left-0 px-1
-        text-xs
+        text-[10px]
       `}
     >
       {color}
@@ -19,7 +19,7 @@ function ColorShade({ shadeName }: StringIndex) {
     <div
       className={`
         absolute bottom-0 right-0 px-1
-        text-xs
+        text-[10px]
       `}
     >
       {shadeName}
@@ -34,7 +34,7 @@ function KeyColor({ name, textColor, bgColor, colorHash }: StringIndex) {
       flex items-start justify-center w-full p-1
       ${textColor}
       ${bgColor}
-      shadow-md relative text-base
+      shadow-md relative
     `}
     >
       {name}
@@ -42,11 +42,21 @@ function KeyColor({ name, textColor, bgColor, colorHash }: StringIndex) {
     </div>
   );
 }
+
+function PaletteColorPair({ colorPair }: StringIndex) {
+  return (
+    <div className="flex flex-col w-full drop-shadow-md">
+      {colorPair.map((color, idx) => (
+        <PaletteColor key={`col-pair-${idx}`} {...color} />
+      ))}
+    </div>
+  );
+}
 function PaletteColor({ name, textColor, bgColor, colorHash, shadeName }: StringIndex) {
   return (
     <div
       className={`
-          flex items-start justify-start w-full p-1 h-16
+          flex items-start justify-start w-full p-1 h-12 last:h-8
           ${textColor}
           ${bgColor}
           relative text-[14px]
@@ -59,11 +69,11 @@ function PaletteColor({ name, textColor, bgColor, colorHash, shadeName }: String
   );
 }
 
-function PaletteColorRow({ colorRow }: StringIndex) {
+function PaletteColorCol({ colorCol }: StringIndex) {
   return (
-    <div className="flex flex-row shadow-md">
-      {colorRow.map((color) => (
-        <PaletteColor key={color.name + color.hash} {...color} />
+    <div className="flex flex-col w-full gap-2">
+      {colorCol.map((colorPair, idx) => (
+        <PaletteColorPair key={`col-pair-${idx}`} colorPair={colorPair} />
       ))}
     </div>
   );
@@ -74,25 +84,18 @@ export function PalettePage() {
       <Breadcrumbs data={["Palette", "Light Theme"]} />
       <section>
         <section className="flex flex-row flex-wrap">
-          <section id="shades" className="flex flex-wrap gap-6 py-4 w-1/3">
-            Shades
-          </section>
-          <section id="colors" className="flex flex-wrap gap-6 py-4 w-2/3">
+          <section id="colors" className="flex flex-wrap gap-6 py-4 w-full">
             <div className="flex items-stretch h-12 w-full gap-2 justify-between">
               {keyColors.map((color) => (
                 <KeyColor key={color.name} {...color} />
               ))}
             </div>
-            <div className="flex flex-col items-stretch w-full gap-2 justify-between">
-              {paletteColors.map((colorRow, idx) => (
-                <PaletteColorRow key={idx} colorRow={colorRow} />
+            <div className="flex items-stretch w-full gap-2 justify-between">
+              {paletteColors.map((colorCol, idx) => (
+                <PaletteColorCol key={`pal-col-${idx}`} colorCol={colorCol} />
               ))}
             </div>
-            <div className="flex flex-col items-stretch w-full gap-2 justify-between">
-              {surfaceColors.map((colorRow, idx) => (
-                <PaletteColorRow key={idx} colorRow={colorRow} />
-              ))}
-            </div>
+            <div className="flex flex-col items-stretch w-full gap-2 justify-between"></div>
           </section>
         </section>
       </section>
