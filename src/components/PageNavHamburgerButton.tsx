@@ -8,7 +8,7 @@ export function PageNavHamburgerButton({ open = false, ...props }) {
       <Disclosure.Button
         className={`
         inline-flex items-center justify-center rounded-md p-2 
-        text-md3-sys-light-on-primary/80 
+        text-md3-sys-light-on-surface/80 
         hover:text-md3-sys-light-on-primary/90
         hover:bg-md3-ref-primary-primary40/40
         focus:outline-none focus:ring-2 focus:ring-inset focus:ring-md3-sys-light-outline

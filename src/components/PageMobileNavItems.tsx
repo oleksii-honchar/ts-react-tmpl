@@ -7,13 +7,14 @@ import { NavigationContext } from "src/contexts/NavigationContext.tsx";
 export function PageMobileNavItems() {
   const { navItems } = useContext(NavigationContext);
   return (
-    <Disclosure.Panel className="sm:hidden">
+    <Disclosure.Panel className="sm:hidden ">
       {({ close }) => (
         <div
           className={`
           space-y-1 px-2 pb-3 pt-2 absolute right-0 w-full
           shadow-lg
           bg-md3-ref-primary-primary50
+          z-10
         `}
         >
           {navItems!.map((item) => (

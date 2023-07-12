@@ -17,6 +17,7 @@ function ColorHashText({ color, toShowOnHover }: StringIndex) {
       className={classNames(
         `
         absolute bottom-0 left-0 px-1
+        select-all
         text-[10px]
         `,
         toShowOnHover ? "hidden group-hover:block" : "block"
@@ -49,7 +50,11 @@ function KeyColor({ name, textColor, bgColor, colorHash }: StringIndex) {
       flex items-start justify-center w-full p-1
       ${textColor}
       ${bgColor}
-      drop-shadow-md relative
+      relative
+      rounded-lg
+      border-2 border-transparent
+      hover:border-md3-sys-light-outline
+      hover:cursor-pointer
     `}
     >
       {name}
@@ -60,7 +65,7 @@ function KeyColor({ name, textColor, bgColor, colorHash }: StringIndex) {
 
 function PaletteColorPair({ colorPair }: StringIndex) {
   return (
-    <div className="flex flex-col w-full drop-shadow-md">
+    <div className="flex flex-col w-full">
       {colorPair.map((color, idx) => (
         <PaletteColor key={`col-pair-${idx}`} {...color} />
       ))}
@@ -75,6 +80,10 @@ function PaletteColor({ name, textColor, bgColor, colorHash, shadeName }: String
           ${textColor}
           ${bgColor}
           relative text-[14px]
+          first:rounded-t-lg last:rounded-b-lg
+          border-2 border-transparent
+          hover:border-md3-sys-light-outline
+          hover:cursor-pointer
         `}
     >
       {name}
@@ -92,6 +101,10 @@ function ColorShade({ name, textColor, bgColor, colorHash, shadeName }: StringIn
           ${bgColor}
           relative text-[14px]
           group
+          first:rounded-t-lg last:rounded-b-lg
+          border-2 border-transparent
+          hover:border-md3-sys-light-outline
+          hover:cursor-pointer
         `}
     >
       {name}
@@ -128,27 +141,27 @@ export function PalettePage() {
               ))}
             </div>
             <div className="flex items-stretch w-full gap-2 justify-between">
-              <div className="flex flex-col drop-shadow-md w-full max-w-[20%]">
+              <div className="flex flex-col w-full max-w-[20%]">
                 {primaryShades.map((shadeColor, idx) => (
                   <ColorShade key={`primary-shade-col-${idx}`} {...shadeColor} />
                 ))}
               </div>
-              <div className="flex flex-col drop-shadow-md w-full max-w-[20%]">
+              <div className="flex flex-col  w-full max-w-[20%]">
                 {secondaryShades.map((shadeColor, idx) => (
                   <ColorShade key={`secondary-shade-col-${idx}`} {...shadeColor} />
                 ))}
               </div>
-              <div className="flex flex-col drop-shadow-md w-full max-w-[20%]">
+              <div className="flex flex-col  w-full max-w-[20%]">
                 {errorShades.map((shadeColor, idx) => (
                   <ColorShade key={`error-shade-col-${idx}`} {...shadeColor} />
                 ))}
               </div>
-              <div className="flex flex-col drop-shadow-md w-full max-w-[20%]">
+              <div className="flex flex-col  w-full max-w-[20%]">
                 {neutralShades.map((shadeColor, idx) => (
                   <ColorShade key={`neutral-shade-col-${idx}`} {...shadeColor} />
                 ))}
               </div>
-              <div className="flex flex-col drop-shadow-md w-full max-w-[20%]">
+              <div className="flex flex-col w-full max-w-[20%]">
                 {neutralVShades.map((shadeColor, idx) => (
                   <ColorShade key={`neutral-v-shade-col-${idx}`} {...shadeColor} />
                 ))}
