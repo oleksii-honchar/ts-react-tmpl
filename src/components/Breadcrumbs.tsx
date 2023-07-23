@@ -21,9 +21,9 @@ function SingleCrumb({ item, keyId, isLast }: StringIndex) {
     </li>
   );
 }
-export function Breadcrumbs({ data }: StringIndex) {
+export function Breadcrumbs({ data, className }: StringIndex) {
   return (
-    <div className="w-1/2 text-left">
+    <div className={`pl-2 w-1/2 text-left ${className}`}>
       <nav aria-label="breadcrumb" className="w-max">
         <ol className="flex w-full flex-wrap items-center py-2 pr-2">
           <li

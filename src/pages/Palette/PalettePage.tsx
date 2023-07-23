@@ -20,7 +20,7 @@ function ColorHashText({ color, toShowOnHover }: StringIndex) {
         select-all
         text-[10px]
         `,
-        toShowOnHover ? "hidden group-hover:block" : "block"
+        toShowOnHover ? "hidden group-hover:block" : "block",
       )}
     >
       {color}
@@ -35,7 +35,7 @@ function ColorShadeName({ shadeName, toShowOnHover }: StringIndex) {
         absolute bottom-0 right-0 px-1
         text-[10px]
         `,
-        toShowOnHover ? "hidden group-hover:block" : "block"
+        toShowOnHover ? "hidden group-hover:block" : "block",
       )}
     >
       {shadeName}
@@ -125,51 +125,65 @@ function PaletteColorCol({ colorCol }: StringIndex) {
 }
 export function PalettePage() {
   return (
-    <article>
-      <Breadcrumbs data={["Palette", "Light Theme"]} />
-      <section>
-        <section className="flex flex-row flex-wrap">
-          <section id="colors" className="flex flex-wrap gap-4 py-0 w-full">
-            <div className="flex items-stretch h-10 w-full gap-2 justify-between">
-              {keyColors.map((color) => (
-                <KeyColor key={color.name} {...color} />
-              ))}
-            </div>
-            <div className="flex items-stretch w-full gap-2 justify-between">
-              {paletteColors.map((colorCol, idx) => (
-                <PaletteColorCol key={`pal-col-${idx}`} colorCol={colorCol} />
-              ))}
-            </div>
-            <div className="flex items-stretch w-full gap-2 justify-between">
-              <div className="flex flex-col w-full max-w-[20%]">
-                {primaryShades.map((shadeColor, idx) => (
-                  <ColorShade key={`primary-shade-col-${idx}`} {...shadeColor} />
+    <article
+      className={`
+        flex flex-col 
+        w-full max-w-2xl md:max-w-3xl lg:max-w-5xl 
+      `}
+    >
+      <div
+        id="content-container"
+        className={`
+          px-2
+          w-full max-w-2xl md:max-w-3xl lg:max-w-5xl
+          flex flex-col flex-grow 
+        `}
+      >
+        <Breadcrumbs data={["Palette", "Light Theme"]} />
+        <section className="flex flex-col justify-center">
+          <section className="flex flex-row flex-wrap">
+            <section id="colors" className="flex flex-wrap gap-4 py-0 w-full">
+              <div className="flex items-stretch h-10 w-full gap-2 justify-between">
+                {keyColors.map((color) => (
+                  <KeyColor key={color.name} {...color} />
                 ))}
               </div>
-              <div className="flex flex-col  w-full max-w-[20%]">
-                {secondaryShades.map((shadeColor, idx) => (
-                  <ColorShade key={`secondary-shade-col-${idx}`} {...shadeColor} />
+              <div className="flex items-stretch w-full gap-2 justify-between">
+                {paletteColors.map((colorCol, idx) => (
+                  <PaletteColorCol key={`pal-col-${idx}`} colorCol={colorCol} />
                 ))}
               </div>
-              <div className="flex flex-col  w-full max-w-[20%]">
-                {errorShades.map((shadeColor, idx) => (
-                  <ColorShade key={`error-shade-col-${idx}`} {...shadeColor} />
-                ))}
+              <div className="flex items-stretch w-full gap-2 justify-between">
+                <div className="flex flex-col w-full max-w-[20%]">
+                  {primaryShades.map((shadeColor, idx) => (
+                    <ColorShade key={`primary-shade-col-${idx}`} {...shadeColor} />
+                  ))}
+                </div>
+                <div className="flex flex-col  w-full max-w-[20%]">
+                  {secondaryShades.map((shadeColor, idx) => (
+                    <ColorShade key={`secondary-shade-col-${idx}`} {...shadeColor} />
+                  ))}
+                </div>
+                <div className="flex flex-col  w-full max-w-[20%]">
+                  {errorShades.map((shadeColor, idx) => (
+                    <ColorShade key={`error-shade-col-${idx}`} {...shadeColor} />
+                  ))}
+                </div>
+                <div className="flex flex-col  w-full max-w-[20%]">
+                  {neutralShades.map((shadeColor, idx) => (
+                    <ColorShade key={`neutral-shade-col-${idx}`} {...shadeColor} />
+                  ))}
+                </div>
+                <div className="flex flex-col w-full max-w-[20%]">
+                  {neutralVShades.map((shadeColor, idx) => (
+                    <ColorShade key={`neutral-v-shade-col-${idx}`} {...shadeColor} />
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col  w-full max-w-[20%]">
-                {neutralShades.map((shadeColor, idx) => (
-                  <ColorShade key={`neutral-shade-col-${idx}`} {...shadeColor} />
-                ))}
-              </div>
-              <div className="flex flex-col w-full max-w-[20%]">
-                {neutralVShades.map((shadeColor, idx) => (
-                  <ColorShade key={`neutral-v-shade-col-${idx}`} {...shadeColor} />
-                ))}
-              </div>
-            </div>
+            </section>
           </section>
         </section>
-      </section>
+      </div>
     </article>
   );
 }

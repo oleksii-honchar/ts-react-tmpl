@@ -1,5 +1,4 @@
-import ora, { Options } from "ora";
-import { Color, Ora } from "ora";
+import ora, { Options, Color, Ora } from "ora";
 import { SpinnerName } from "cli-spinners";
 /**
  * Helper functions
@@ -33,8 +32,8 @@ class Blablo {
   errFn: Function;
   currSpinner: any;
   ora: Ora;
-  defaultSpinnerName: string = "dots";
-  defaultSpinnerColor: string = "yellow";
+  defaultSpinnerName = "dots";
+  defaultSpinnerColor = "yellow";
 
   constructor(options: { ora: (options?: string | Options) => Ora }) {
     // @ts-ignore
@@ -72,13 +71,13 @@ class Blablo {
   }
 
   cleanLog(...args: any) {
-    const payload = args.join("") + "\n";
+    const payload = args.join(" ") + "\n";
     // process.stdout.write(payload);
     this.logFn.apply(this.nativeConsole, args);
   }
   chainLog(...args: any) {
     this.argsQueue = this.argsQueue.concat(args);
-    const payload = this.argsQueue.join("");
+    const payload = this.argsQueue.join(" ");
 
     !this.currSpinner.isSpinning && this.currSpinner.start();
 

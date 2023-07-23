@@ -8,6 +8,10 @@ const logHeader = "[tailwind-css:config]".cyan;
 blablo.log(logHeader, "loading config").finish();
 
 module.exports = {
+  corePlugins: {
+    animation: true,
+    translate: true,
+  },
   content: {
     files: ["./src/**/*.{html,js,ts,tsx,hbs}"],
   },
