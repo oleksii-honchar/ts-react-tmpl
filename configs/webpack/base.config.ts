@@ -49,9 +49,6 @@ export const baseConfig = (env: any = {}) => {
       publicPath: "/",
     },
     plugins: [
-      new webpack.optimize.LimitChunkCountPlugin({
-        maxChunks: 2,
-      }),
       new webpack.DefinePlugin({
         "process.env": {
           NODE_ENV: JSON.stringify(env.NODE_ENV),
@@ -87,6 +84,12 @@ export const baseConfig = (env: any = {}) => {
     watchOptions: {
       poll: 1000,
       aggregateTimeout: 1000,
+    },
+    optimization: {
+      splitChunks: {
+        chunks: "async",
+        minSize: 20000,
+      },
     },
   };
 };

@@ -123,7 +123,7 @@ function PaletteColorCol({ colorCol }: StringIndex) {
     </div>
   );
 }
-export function PalettePage() {
+export default function PalettePage() {
   return (
     <article
       className={`

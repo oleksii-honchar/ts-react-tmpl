@@ -1,7 +1,7 @@
 import { FaGithubSquare } from "react-icons/fa";
 import { Breadcrumbs } from "src/components/Breadcrumbs.tsx";
 
-export function AboutPage() {
+export default function AboutPage() {
   return (
     <article
       className={`

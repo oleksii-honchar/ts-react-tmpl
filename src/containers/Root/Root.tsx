@@ -1,12 +1,13 @@
-import { Suspense, ReactElement, Fragment } from "react";
+import { lazy, Suspense, ReactElement } from "react";
 
 import { BigSpinner } from "src/components/BigSpinner.tsx";
 import { Layout } from "./components/Layout.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorBoundary } from "src/components/ErrorBoundary.tsx";
-import { AboutPage } from "src/pages/About/AboutPage.tsx";
-import { PalettePage } from "src/pages/Palette/PalettePage.tsx";
 import { NavContextProvider } from "src/contexts/NavigationContext.tsx";
+
+const AboutPage = lazy(() => import("src/pages/About/AboutPage.tsx"));
+const PalettePage = lazy(() => import("src/pages/Palette/PalettePage.tsx"));
 
 const router = createBrowserRouter([
   {
