@@ -136,7 +136,7 @@ export function PalettePage() {
         className={`
           px-2
           w-full max-w-2xl md:max-w-3xl lg:max-w-5xl
-          flex flex-col flex-grow π
+          flex flex-col flex-grow 
         `}
       >
         <Breadcrumbs data={["Palette", "Light Theme"]} />
