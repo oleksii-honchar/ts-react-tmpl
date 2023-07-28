@@ -10,6 +10,7 @@ export const devServerConfig = (env: any) => {
 
   return {
     devServer: {
+      hot: env.LAUNCH_PROD_SERVER ? false : true,
       client: {
         logging: "info",
       },

@@ -7,12 +7,13 @@ import WebpackDevServer from "webpack-dev-server";
 import minimist from "minimist";
 import colors from "colors";
 import * as emoji from "node-emoji";
+import path from "path";
 
 import { StringIndex } from "src/typings/index.js";
 import { pick } from "scripts/ts-utils.ts";
 import { blablo } from "blablo";
 import { getRootRepoDir, setCurrMetaUrl } from "scripts/esm-utils.ts";
-import path from "path";
+import { nl } from "src/utils/native-lodash.ts";
 
 setCurrMetaUrl(import.meta.url);
 colors.enable();
@@ -26,7 +27,7 @@ const argv = {
   watch: false,
   open: false,
   stats: "minimal",
-  launchDevServer: !!parsedArgs["launch-dev-server"],
+  launchServer: !!parsedArgs["launch-server"],
   env: [],
   ...parsedArgs,
 };
@@ -40,7 +41,8 @@ const customEnv = argv.env.reduce((acc: StringIndex, curr: string) => {
   return acc;
 }, {});
 
-const env = {
+const env: StringIndex = {
+  LAUNCH_PROD_SERVER: process.env.NODE_ENV === "production" && !!argv.launchServer,
   ...customEnv,
   ...pick(process.env, ["NODE_ENV", "BUILD_ANALYZE", "TS_LOADER", "LOG_LEVEL", "SERVE_PORT"]),
 };
@@ -59,15 +61,16 @@ if (env.TS_LOADER) {
 // blablo.cleanLog(env);
 
 // Param "--watch" used to enable "build + watch" mode
-// Param "--launch-dev-server" used to enable "build + static serv" mode
+// Param "--launch-server" used to enable "build(dev) + static serv" mode
 // Param "--open" used to open browser after build. This param works only with --launch-dev-server
 let watching = null;
 let devServer = null;
-const operationMode = argv.launchDevServer ? "server" : argv.watch ? "watch" : "build";
+const operationMode = argv.launchServer ? "server" : argv.watch ? "watch" : "build";
 const cfgPath = path.join(getRootRepoDir(), argv.config);
 const { configFactory } = await import(cfgPath);
 const config = configFactory(env, argv as any);
 
+// blablo.cleanLog(logHeader, "config", config);
 blablo.cleanLog(logHeader, `starting ${operationMode.white.bold}`, emoji.get(emoji.find("rocket")?.key ?? ""));
 
 // @ts-ignore
@@ -75,13 +78,14 @@ blablo.cleanLog(logHeader, `starting ${operationMode.white.bold}`, emoji.get(emo
 if (operationMode === "server") {
   // expecting config here to be object, not [{},{}]
   const compiler = webpack({ ...config, stats: argv.stats });
+
   const devServerOptions = { ...config.devServer, open: argv.open };
+  // blablo.cleanLog(logHeader, "devServerOptions", devServerOptions);
   devServer = new WebpackDevServer(devServerOptions, compiler);
-  // devServer.start();
   devServer.startCallback(() => {
     blablo.cleanLog(
       logHeader,
-      `Successfully started server on ${`http://localhost:${config.devServer.port}`.cyan.bold}`
+      `Successfully started server on ${`http://localhost:${config.devServer.port}`.cyan.bold}`,
     );
   });
 } else {
@@ -107,7 +111,7 @@ if (operationMode === "server") {
           chunks: false,
           children: false,
           colors: true, // Shows colors in the console
-        })
+        }),
       );
 
       if (operationMode == "watch") {

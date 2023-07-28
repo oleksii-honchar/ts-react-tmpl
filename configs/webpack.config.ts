@@ -21,7 +21,7 @@ blablo.cleanLog(logHeader, `starting "${pkg.name}" config composition`);
 // `NODE_ENV` = development | test | production
 // `LOG_LEVEL` = error | warn | info | debug
 
-export const configFactory = (env: any = {}, argv: { mode: string }) => {
+export const configFactory = (env: any = {}, argv: { mode: string; launchServer?: boolean }) => {
   env = {
     NODE_ENV: "development",
     BUILD_ANALYZE: null,
@@ -31,6 +31,7 @@ export const configFactory = (env: any = {}, argv: { mode: string }) => {
 
   blablo.cleanLog(logHeader, `using "${env.NODE_ENV}" mode`);
   // blablo.cleanLog(env);
+  // blablo.cleanLog(argv);
 
   const envES2022 = { ...env, TS_TARGET: "es2022" };
 
@@ -39,17 +40,26 @@ export const configFactory = (env: any = {}, argv: { mode: string }) => {
   cfgES2022 = merge(cfgES2022, cssModuleConfig(env)); // @ts-ignore
   cfgES2022 = merge(cfgES2022, externalsConfig);
 
-  cfgES2022 = merge(cfgES2022, {
-    // @ts-ignore
-    entry: {
-      app: "./src/index.es2022.tsx",
-    },
-    plugins: [new GenerateIndexHTML(env)],
-  });
-
-  if (argv.mode === "development") {
+  if (argv.launchServer === true) {
     // @ts-ignore
     cfgES2022 = merge(cfgES2022, devServerConfig(envES2022));
+  }
+
+  if (env.LAUNCH_PROD_SERVER) {
+    cfgES2022 = merge(cfgES2022, {
+      // @ts-ignore
+      entry: {
+        dummy: "./configs/webpack/dummy-entry.ts",
+      },
+    });
+  } else {
+    cfgES2022 = merge(cfgES2022, {
+      // @ts-ignore
+      entry: {
+        app: "./src/index.es2022.tsx",
+      },
+      plugins: [new GenerateIndexHTML(env)],
+    });
   }
 
   if (env.BUILD_ANALYZE === "true") {
@@ -60,7 +70,7 @@ export const configFactory = (env: any = {}, argv: { mode: string }) => {
     });
   }
 
-  if (env.NODE_ENV !== "production") {
+  if (env.NODE_ENV !== "production" || argv.launchServer === true) {
     blablo.cleanLog("[webpack:config]".cyan, "config composition completed");
     return cfgES2022;
   }

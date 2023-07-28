@@ -20,7 +20,6 @@ export default class GenerateIndexHTML {
           stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE,
         },
         () => {
-          // get the file main.js
           blablo.log(
             "[GenerateIndexHTML:plugin]".cyan,
             "processing asset",

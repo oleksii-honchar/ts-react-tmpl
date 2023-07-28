@@ -54,16 +54,27 @@ build-loc: clean-dist check-project-env-vars ## Build local version
 build-loc-analyze: check-project-env-vars ## Build local and analyze bundle content
 	$(MAKE) build-loc BUILD_ANALYZE=true
 
-launch-dev-server: check-project-env-vars ## Launches local Webpack dev-server
-	@printf "${BG_GREY}[launch-dev-server] Start${NC}\n"
+launch-loc-server: check-project-env-vars ## Launches local Webpack dev-server
+	@printf "${BG_GREY}[launch-loc-server] Start${NC}\n"
 	@source ${envFileLoc}
 	@npx env-cmd -f $(envFileLoc) node --no-warnings --experimental-specifier-resolution=node \
 		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
-		--mode development --launch-dev-server \
+		--mode development --launch-server \
 		--stats normal \
 		--env BUILD_ANALYZE=false
 
-	@printf "${BG_GREY}[launch-dev-server] DONE${NC}\n"
+	@printf "${BG_GREY}[launch-loc-server] DONE${NC}\n"
+
+launch-prod-server: check-project-env-vars ## Launches local Webpack dev-server
+	@printf "${BG_GREY}[launch-prod-server] Start${NC}\n"
+	@source ${envFileProd}
+	@npx env-cmd -f $(envFileProd) node --no-warnings --experimental-specifier-resolution=node \
+		--loader ./scripts/ts-esm-loader-with-tsconfig-paths.js ./configs/webpack-wrapper.ts\
+		--mode production --launch-server \
+		--stats normal \
+		--env BUILD_ANALYZE=false
+
+	@printf "${BG_GREY}[launch-loc-server] DONE${NC}\n"
 
 
 

@@ -26,7 +26,7 @@ export const cssModuleConfig = (env: any) => {
   };
 
   return {
-    plugins,
+    plugins: [...(env.LAUNCH_PROD_SERVER ? [] : plugins)],
     module: {
       rules: [
         {
