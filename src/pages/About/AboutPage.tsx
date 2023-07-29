@@ -100,7 +100,7 @@ export default function AboutPage() {
                       <li>"es-build" TS loader</li>
                     </ul>
                   </li>
-                  <li>[TBD] Code Splitting and route async loading</li>
+                  <li>Code Splitting and route async loading</li>
                   <li>[TBD] Terraform based deploy to AWS</li>
                 </ul>
               </div>

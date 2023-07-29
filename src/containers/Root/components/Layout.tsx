@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import { PageNavbar } from "src/components/PageNavbar.tsx";
+import { Footer } from "src/components/Footer.tsx";
 import { ScrollToTop } from "src/components/ScrollToTop.tsx";
 import { ScrollDownIndicator } from "src/components/ScrollDownIndicator.tsx";
 
@@ -13,6 +14,7 @@ export function Layout({}) {
         <Outlet />
         <ScrollDownIndicator />
       </main>
+      <Footer />
     </div>
   );
 }
