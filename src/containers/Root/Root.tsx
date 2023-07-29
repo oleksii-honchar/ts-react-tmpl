@@ -1,13 +1,41 @@
-import { Suspense, useState, useTransition, ReactElement, Fragment } from "react";
+import { lazy, Suspense, ReactElement } from "react";
 
 import { BigSpinner } from "src/components/BigSpinner.tsx";
-import { Router } from "./components/Router.tsx";
+import { Layout } from "./components/Layout.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ErrorBoundary } from "src/components/ErrorBoundary.tsx";
+import { NavContextProvider } from "src/contexts/NavigationContext.tsx";
 
-export { NavigationContext } from "./components/Router.tsx";
+const AboutPage = lazy(() => import("src/pages/About/AboutPage.tsx"));
+const PalettePage = lazy(() => import("src/pages/Palette/PalettePage.tsx"));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        index: true,
+        element: <PalettePage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path: "palette",
+        element: <PalettePage />,
+      },
+    ],
+  },
+]);
 export function Root(): ReactElement {
   return (
     <Suspense fallback={<BigSpinner />}>
-      <Router />
+      <NavContextProvider>
+        <RouterProvider router={router} />
+      </NavContextProvider>
     </Suspense>
   );
 }

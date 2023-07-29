@@ -10,13 +10,15 @@ export const devServerConfig = (env: any) => {
 
   return {
     devServer: {
+      hot: env.LAUNCH_PROD_SERVER ? false : true,
       client: {
         logging: "info",
       },
       devMiddleware: {
         writeToDisk: true,
-        publicPath: "/assets",
+        publicPath: "/",
       },
+      historyApiFallback: true,
       port: env.SERVE_PORT,
       static: path.join(getRootRepoDir(), "./dist"),
     },

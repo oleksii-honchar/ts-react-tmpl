@@ -1,7 +1,7 @@
 import path from "path";
 import { createRequire } from "module";
 
-import { purgeCssConfig } from "./purgecss.config.ts";
+// import { purgeCssConfig } from "./purgecss.config.ts";
 import { blablo } from "../../scripts/blablo.ts";
 import type { StringIndex } from "../../src/typings/index.d.ts";
 import { getRootRepoDir } from "../../scripts/esm-utils.ts";
@@ -48,7 +48,7 @@ export default function postCssConfig(params: { file: any; options: StringIndex;
       postCssImport,
       postCssPresetEnv,
       cssNanoCfg,
-      params.env === "production" ? purgeCssConfig : false,
+      // params.env === "production" ? purgeCssConfig : false, - still misses TailwindCSS
     ],
   };
 }

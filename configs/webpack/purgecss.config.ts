@@ -23,4 +23,10 @@ export const purgeCssConfig = purgeCss({
       extensions: ["tsx"],
     },
   ],
+  whitelist: [
+    // Add the Tailwind CSS classes or selectors you want to keep here
+    /^bg-/, // Keep all classes starting with "bg-"
+    /^from-/, // Keep all classes starting with "from-"
+    /^to-/, // Keep all classes starting with "to-"
+  ],
 });

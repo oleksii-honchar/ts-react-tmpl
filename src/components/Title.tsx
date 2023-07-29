@@ -1,9 +1,15 @@
 export function Title() {
   return (
-    <div className="hidden sm:ml-6 sm:block sm:w-6/12 md:w-7/12 lg:w-8/12">
-      <h2 className="color-md3-sys-light-on-surface text-1xl font-bold leading-7 sm:truncate lg:truncate xl:truncate sm:text-2xl sm:tracking-tight">
+    <div className="hidden sm:ml-2 sm:block sm:w-6/12 md:w-7/12 lg:w-8/12 space-x-4 flex justify-self-center">
+      <p
+        className={`
+          text-md3-sys-light-primary
+          font-bold
+          text-base 
+          sm:leading-7 sm:truncate lg:truncate xl:truncate sm:tracking-tight`}
+      >
         &quot;TS + React + TW&quot; Template
-      </h2>
+      </p>
     </div>
   );
 }
