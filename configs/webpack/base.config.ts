@@ -1,6 +1,7 @@
 import path from "path";
 import webpack from "webpack";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import moment from "moment";
 // @ts-ignore
 import LoaderOptionsPlugin from "webpack/lib/LoaderOptionsPlugin";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
@@ -28,6 +29,7 @@ export const baseConfig = (env: any = {}) => {
         LOG_LEVEL: JSON.stringify(env.LOG_LEVEL),
         PKG_NAME: JSON.stringify(pkg.name),
         PKG_VERSION: JSON.stringify(pkg.version),
+        BUILD_VERSION: JSON.stringify(moment().format("YYYYMMDDHHmmss")),
       },
     }),
     new LoaderOptionsPlugin({
