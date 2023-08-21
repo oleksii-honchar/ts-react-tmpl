@@ -16,3 +16,12 @@ logs/*
 node_modules/
 devops/version/
 tmp
+
+cdktf.out
+cdktf.log
+*terraform.*.tfstate*
+.gen
+.terraform
+tsconfig.tsbuildinfo
+!jest.config.js
+!setup.js

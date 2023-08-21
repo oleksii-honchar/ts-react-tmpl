@@ -1,15 +1,18 @@
 /**
  * This wrapper allows to use ESM ts webpack configs in order to have esm style modules in whole repo
  */
-import process from "node:process";
+// eslint-disable-next-line import/default
 import webpack from "webpack";
+// eslint-disable-next-line import/default
 import WebpackDevServer from "webpack-dev-server";
+// eslint-disable-next-line import/default
 import minimist from "minimist";
+import process from "node:process";
 import colors from "colors";
 import * as emoji from "node-emoji";
 import path from "path";
 
-import { StringIndex } from "src/typings/index.js";
+import type { StringIndex } from "src/typings/index.d.ts";
 import { pick } from "scripts/ts-utils.ts";
 import { blablo } from "blablo";
 import { getRootRepoDir, setCurrMetaUrl } from "scripts/esm-utils.ts";
@@ -19,7 +22,7 @@ setCurrMetaUrl(import.meta.url);
 colors.enable();
 
 const logHeader = "[Webpack]".cyan.bold;
-const emoSparkles: any = emoji.get(emoji.find("✨")?.key ?? "");
+const emoSparkles: string = emoji.get(emoji.find("✨")?.key ?? "") || "";
 const parsedArgs = minimist(process.argv.slice(2));
 const argv = {
   mode: "development",
