@@ -25,3 +25,5 @@ cdktf.log
 tsconfig.tsbuildinfo
 !jest.config.js
 !setup.js
+.history
+.DS_Store

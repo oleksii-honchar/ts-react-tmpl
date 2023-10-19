@@ -9,7 +9,7 @@ blablo.log(logHeader, "loading", "'Module-CSS'".white.bold).finish();
 export const cssModuleConfig = (env: any) => {
   const isProd = env.NODE_ENV === "production";
 
-  const postCssConfigPath = path.join(getRootRepoDir(), "./configs/webpack/postcss.config.ts");
+  const postCssConfigPath = path.join(getRootRepoDir(), "./.configs/webpack/postcss.config.ts");
 
   const plugins = [
     new MiniCssExtractPlugin({

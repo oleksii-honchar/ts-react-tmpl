@@ -26,7 +26,7 @@ const emoSparkles: string = emoji.get(emoji.find("✨")?.key ?? "") || "";
 const parsedArgs = minimist(process.argv.slice(2));
 const argv = {
   mode: "development",
-  config: "./configs/webpack.config.ts",
+  config: "./.configs/webpack.config.ts",
   watch: false,
   open: false,
   stats: "minimal",
