@@ -7,6 +7,11 @@ NC=\033[0m # No Color
 include project.env
 export $(shell sed 's/=.*//' project.env)
 
+include ./.configs/envs/deployment.env
+export $(shell sed 's/=.*//' ./.configs/envs/deployment.env)
+
+export LATEST_VERSION=$(shell jq -r '.version' ./package.json)
+
 envFileLoc = "$(PWD)/.configs/envs/local.env"
 envFileProd = "$(PWD)/.configs/envs/production.loc.env"
 
@@ -89,3 +94,20 @@ watch-loc: check-project-env-vars ## No dev server - only file watch and rebuild
 install-tools: ## install ncu for new node version
 	npm i -g npm-check-updates
 	npm i -g tsconf-checker
+	brew install jq
+
+# make build 
+build-docker: ## build image
+	@docker build --load --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(IMAGE_NAME) -t $(IMAGE_NAME):$(LATEST_VERSION) .
+
+up-docker:
+	@docker stop $(CONTAINER_NAME) || true
+	@docker run -d --rm --name $(CONTAINER_NAME) -p 8000:80 $(IMAGE_NAME):$(LATEST_VERSION)
+	@docker logs --follow $(CONTAINER_NAME)
+
+down-docker:
+	@docker stop $(CONTAINER_NAME)
+
+# make tag-latest
+tag-latest: ## tag  image as latest
+	@docker tag $(IMAGE_NAME):$(LATEST_VERSION) $(IMAGE_NAME):latest

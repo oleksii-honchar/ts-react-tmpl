@@ -1,18 +1,19 @@
- React app template (TS + Webpack)
+# React app template (TS + Webpack)
 
-# Base setup:
+## Base setup
 
-## General
+### General
 
 - eslint for react, prettier, typescript
 - conventional commit
 
-## Webpack
+### Webpack
+
 - webpack multibuild for es2016 & es2022
 - vendor external links
 - ExtractCssChunksPlugin - to export css to separate file when `import` used inside js
 
-## PostCSS
+### PostCSS
 
 - `postcss-import` - to resolve dependencies
 - `tailwindcss` - utility-based mini css framework [link](https://tailwindcss.com/)
@@ -21,16 +22,18 @@
 - `purge-css` - to remove unnecessary css styles (jsx supported)
 - `postcss-discard-comments` - remove comments for dev mode
 
-# Git hooks
+## Git hooks
 
 Husky hooks in package.json doesn't work. You need to create separate hooks with the command below.
 
 `./.configs/commitlint.config.cjs`
+
 ```js
 module.exports = {
   extends: ["@commitlint/config-conventional"],
 };
 ```
+
 ```bash
 npm install husky --save-dev
 npm install @commitlint/cli --save-dev
