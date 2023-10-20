@@ -77,3 +77,4 @@ Also one can check `Makefile` for more details on automation commands.
 ## TODO
 
 - resolve typecheck errors
+- switch to `shebang` routes
