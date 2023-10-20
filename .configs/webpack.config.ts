@@ -49,7 +49,7 @@ export const configFactory = (env: any = {}, argv: { mode: string; launchServer?
     cfgES2022 = merge(cfgES2022, {
       // @ts-ignore
       entry: {
-        dummy: "./configs/webpack/dummy-entry.ts",
+        dummy: "./.configs/webpack/dummy-entry.ts",
       },
     });
   } else {

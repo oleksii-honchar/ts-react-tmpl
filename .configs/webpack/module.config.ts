@@ -10,7 +10,7 @@ export const moduleConfig = (env: any = {}) => {
     test: /\.([cm]?ts|tsx)$/,
     exclude: [/\.(spec|e2e|d)\.[tj]sx?$/],
   };
-  const tsConfigFilePath = path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`);
+  const tsConfigFilePath = path.join(getRootRepoDir(), `./.configs/tsconfig.${env.TS_TARGET}.json`);
 
   switch (env.TS_LOADER) {
     case "esbuild":

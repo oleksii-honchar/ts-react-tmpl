@@ -71,7 +71,7 @@ export const baseConfig = (env: any = {}) => {
       modules: ["src", "node_modules"],
       plugins: [
         new TsconfigPathsPlugin({
-          configFile: path.join(getRootRepoDir(), `./configs/tsconfig.${env.TS_TARGET}.json`),
+          configFile: path.join(getRootRepoDir(), `./.configs/tsconfig.${env.TS_TARGET}.json`),
           logLevel: "INFO",
         }),
       ],
