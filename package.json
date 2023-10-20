@@ -12,8 +12,6 @@
     "build:loc:analyze": "make build-loc-analyze",
     "cm": "npx git-cz",
     "check:all": "run-p lint:fix types:check",
-    "deploy:cdn": "bash scripts/deploy-to-cdn.sh",
-    "devops:chmod-scripts": "bash devops/local/scripts/chmod-scripts.sh",
     "launch:loc": "run-p launch:loc:server types:watch",
     "launch:loc:server": "make launch-loc-server",
     "launch:prod:server": "make launch-prod-server",

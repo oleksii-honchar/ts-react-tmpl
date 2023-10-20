@@ -94,18 +94,21 @@ watch-loc: check-project-env-vars ## No dev server - only file watch and rebuild
 install-tools: ## install ncu for new node version
 	npm i -g npm-check-updates
 	npm i -g tsconf-checker
+	npm i -g markdown-toc
 	brew install jq
 
 # make build 
 build-docker: ## build image
 	@docker build --load --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(IMAGE_NAME) -t $(IMAGE_NAME):$(LATEST_VERSION) .
 
-up-docker:
-	@docker stop $(CONTAINER_NAME) || true
-	@docker run -d --rm --name $(CONTAINER_NAME) -p 8000:80 $(IMAGE_NAME):$(LATEST_VERSION)
+.ONESHELL:
+up-docker: ## docker up static image resolver
+	@if [ $$(docker ps -a -q -f name=$(CONTAINER_NAME)) ]; then docker stop $(CONTAINER_NAME); fi
+	@export $$(grep -v '^#' $(envFileLoc) | xargs)
+	docker run -d --rm --name $(CONTAINER_NAME) -p $(SERVE_PORT):80 $(IMAGE_NAME):$(LATEST_VERSION)
 	@docker logs --follow $(CONTAINER_NAME)
 
-down-docker:
+down-docker: ## docker down static image resolver
 	@docker stop $(CONTAINER_NAME)
 
 # make tag-latest
