@@ -2,7 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const { blablo } = require("./scripts/blablo.ts");
 
-const m3DesignTokensV1 = require("./src/stylesheets/md3-design-tokens-v1.ts");
+const m3DesignTokensV1 = require("./src/stylesheets/md3-design-tokens-v2.ts");
 
 const logHeader = "[tailwind-css:config]".cyan;
 blablo.log(logHeader, "loading config").finish();
